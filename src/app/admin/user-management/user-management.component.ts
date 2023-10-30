@@ -66,10 +66,10 @@ export class UserManagementComponent {
     this.address ='';
   }
 
-  // viewItemDetails(item: any) {
-  //   // Chuyển đến trang chi tiết với id của mục
-  //   this.router.navigate(['/phone', item.id]);
-  // }
+  viewItemDetails(item: any) {
+    // Chuyển đến trang chi tiết với id của mục
+    this.router.navigate(['/phone', item.id]);
+  }
 
   updateItem() {
     if (
