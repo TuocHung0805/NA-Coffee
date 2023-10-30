@@ -24,9 +24,12 @@ import { OrderListComponent } from './admin/order-list/order-list.component';
 import { PromotionManagementComponent } from './admin/promotion-management/promotion-management.component';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { RecipeComponent } from './admin/recipe/recipe.component';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
@@ -56,9 +59,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    provideFirebaseApp(() => initializeApp({"projectId":"na-coffee","appId":"1:755920000175:web:0ab921f2e9c0e44a88f05a","storageBucket":"na-coffee.appspot.com","apiKey":"AIzaSyD8m9Ko0e3zIOUpyP6ZASJ4zkawNZuYnas","authDomain":"na-coffee.firebaseapp.com","messagingSenderId":"755920000175"})),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireDatabaseModule,
     FormsModule,
     MatSnackBarModule,
   ],

@@ -6,5 +6,5 @@ import { AuthService } from 'src/app/service/auth.service';
   styleUrls: ['./forgot-password.component.css']
 })
 export class ForgotPasswordComponent {
-  constructor(private authService: AuthService){}
+  constructor(public authService: AuthService){}
 }

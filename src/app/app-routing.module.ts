@@ -1,7 +1,5 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HeaderComponent } from './sharepage/header/header.component';
-import { FooterComponent } from './sharepage/footer/footer.component';
 import { HomeComponent } from './page/home/home.component';
 import { CartComponent } from './page/cart/cart.component';
 import { MenuComponent } from './page/menu/menu.component';
@@ -22,8 +20,6 @@ import { ModItemComponent } from './admin/mod-item/mod-item.component';
 import { IngredientComponent } from './admin/ingredient/ingredient.component';
 
 const routes: Routes = [
-  {path: 'header', component:HeaderComponent},
-  {path: 'footer', component:FooterComponent},
   {path: '', component:HomeComponent},
   {path: 'blog', component:BlogComponent},
   {path:'menu',component:MenuComponent},

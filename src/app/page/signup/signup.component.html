@@ -39,6 +39,8 @@
               id="form3Example3"
               class="form-control form-control-lg"
               placeholder="Enter a valid email address"
+              #userEmail
+              required
             />
             <label class="form-label" for="form3Example3">Email address</label>
           </div>
@@ -50,6 +52,8 @@
               id="form3Example4"
               class="form-control form-control-lg"
               placeholder="Enter password"
+              #userPassword
+              required
             />
             <label class="form-label" for="form3Example4">Password</label>
           </div>
@@ -59,6 +63,7 @@
               type="button"
               class="btn btn-primary btn-lg"
               style="padding-left: 2.5rem; padding-right: 2.5rem"
+              (click)="authService.SignUp(userEmail.value, userPassword.value)"
             >
               Sign up
             </button>
