@@ -2,8 +2,7 @@ body {
   position: relative;
   top: 120px;
 }
-
-.icon-hover:hover {
+h5 .icon-hover:hover {
   border-color: #3b71ca !important;
   background-color: white !important;
 }

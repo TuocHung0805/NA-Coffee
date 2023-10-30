@@ -11,9 +11,7 @@
           <h6 class="mb-0">
             <a href="" class="text-white-50">Home</a>
             <span class="text-white-50 mx-2"> > </span>
-            <a href="" class="text-white-50">Menu</a>
-            <span class="text-white-50 mx-2"> > </span>
-            <a href="" class="text-white"><u>Product</u></a>
+            <a href="/menu" class="text-white">Menu</a>
           </h6>
         </nav>
         <!-- Breadcrumb -->
@@ -61,9 +59,11 @@
                       >
                         <img
                           src="../../../assets/image/home-img-3.png"
+                          routerLink="/detail"
                           class="w-100"
+                          style="cursor: pointer"
                         />
-                        <a href="#!">
+                        <a>
                           <div class="hover-overlay">
                             <div
                               class="mask"
@@ -76,7 +76,9 @@
                       </div>
                     </div>
                     <div class="col-xl-6 col-md-5 col-sm-7">
-                      <h5>StarBuck</h5>
+                      <h5 routerLink="/detail" style="cursor: pointer">
+                        StarBuck
+                      </h5>
                       <div class="d-flex flex-row">
                         <div class="text-warning mb-1 me-2">
                           <i class="fa fa-star"></i>
@@ -107,9 +109,12 @@
                           Buy this
                         </button>
                         <a
-                          href="#!"
+                          routerLink="/detail"
                           class="btn btn-light border px-2 pt-2 icon-hover"
-                          ><i class="fas fa-heart fa-lg px-1"></i
+                          ><i
+                            class="fas fa-heart fa-lg px-1"
+                            style="cursor: pointer"
+                          ></i
                         ></a>
                       </div>
                     </div>

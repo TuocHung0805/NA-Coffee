@@ -16,6 +16,14 @@ import { SignupComponent } from './page/signup/signup.component';
 import { ForgotPasswordComponent } from './page/forgot-password/forgot-password.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { NavSidebarComponent } from './admin/nav-sidebar/nav-sidebar.component';
+import { AgencyComponent } from './admin/agency/agency.component';
+import { IngredientComponent } from './admin/ingredient/ingredient.component';
+import { ModItemComponent } from './admin/mod-item/mod-item.component';
+import { NotificationComponent } from './admin/notification/notification.component';
+import { OrderListComponent } from './admin/order-list/order-list.component';
+import { PromotionManagementComponent } from './admin/promotion-management/promotion-management.component';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { RecipeComponent } from './admin/recipe/recipe.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +40,14 @@ import { NavSidebarComponent } from './admin/nav-sidebar/nav-sidebar.component';
     ForgotPasswordComponent,
     AdminDashboardComponent,
     NavSidebarComponent,
+    AgencyComponent,
+    IngredientComponent,
+    ModItemComponent,
+    NotificationComponent,
+    OrderListComponent,
+    PromotionManagementComponent,
+    UserManagementComponent,
+    RecipeComponent,
   ],
   imports: [
     BrowserModule,

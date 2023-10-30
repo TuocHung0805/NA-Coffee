@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './sharepage/header/header.component';
 import { FooterComponent } from './sharepage/footer/footer.component';
@@ -13,6 +13,13 @@ import { SignupComponent } from './page/signup/signup.component';
 import { ForgotPasswordComponent } from './page/forgot-password/forgot-password.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { NavSidebarComponent } from './admin/nav-sidebar/nav-sidebar.component';
+import { RecipeComponent } from './admin/recipe/recipe.component';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { PromotionManagementComponent } from './admin/promotion-management/promotion-management.component';
+import { OrderListComponent } from './admin/order-list/order-list.component';
+import { NotificationComponent } from './admin/notification/notification.component';
+import { ModItemComponent } from './admin/mod-item/mod-item.component';
+import { IngredientComponent } from './admin/ingredient/ingredient.component';
 
 const routes: Routes = [
   {path: 'header', component:HeaderComponent},
@@ -28,6 +35,13 @@ const routes: Routes = [
   {path:'forgot',component:ForgotPasswordComponent},
   {path:'admin',component:AdminDashboardComponent},
   {path:'nav',component:NavSidebarComponent},
+  {path:'recipe',component:RecipeComponent},
+  {path:'mod-item',component:ModItemComponent},
+  {path:'notification',component:NotificationComponent},
+  {path:'ingredient',component:IngredientComponent},
+  {path:'order',component:OrderListComponent},
+  {path:'promotion',component:PromotionManagementComponent},
+  {path:'user-management',component:UserManagementComponent},
 
 ];
 
