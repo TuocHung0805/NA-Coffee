@@ -19,7 +19,7 @@
                 style="width: 80px"
               />
               <h5>{{displayName}}</h5>
-              <i class="far fa-edit mb-5"></i>
+              <i class="far fa-edit mb-5" (click)="toggleEditMode()" style="cursor: pointer;"></i>
             </div>
             <div class="col-md-8">
               <div class="card-body p-4">
@@ -64,7 +64,7 @@
         <div class="row">
           <div class="col-md-10">
             <div class="edit-form col-md-6" *ngIf="isEditMode">
-              <form>
+              <form (submit)="savePersonalInfo()">
                 <div class="form-group">
                   <label for="displayName">Họ và tên:</label>
                   <input
