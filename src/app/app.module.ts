@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,7 +17,6 @@ import { SignupComponent } from './page/signup/signup.component';
 import { ForgotPasswordComponent } from './page/forgot-password/forgot-password.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { NavSidebarComponent } from './admin/nav-sidebar/nav-sidebar.component';
-import { AgencyComponent } from './admin/agency/agency.component';
 import { IngredientComponent } from './admin/ingredient/ingredient.component';
 import { ModItemComponent } from './admin/mod-item/mod-item.component';
 import { NotificationComponent } from './admin/notification/notification.component';
@@ -47,7 +47,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ForgotPasswordComponent,
     AdminDashboardComponent,
     NavSidebarComponent,
-    AgencyComponent,
     IngredientComponent,
     ModItemComponent,
     NotificationComponent,
@@ -59,6 +58,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
     AngularFireAuthModule,

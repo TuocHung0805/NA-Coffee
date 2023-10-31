@@ -39,7 +39,7 @@ export class PromotionManagementComponent {
         this.ItemList = res.map((e: any) => {
           const data = e.payload.doc.data();
           data.id = e.payload.doc.id;
-
+          
         console.log(data);
           return data;
         });
@@ -61,7 +61,7 @@ export class PromotionManagementComponent {
   addItem() {
     if (
       this.ItemQuantity <= 0 ||
-      this.DiscountPercentage <= 0
+      this.DiscountPercentage <= 0 
     ) {
       alert('Điền đầy đủ thông tin và giá trị hợp lệ');
       return;
@@ -82,26 +82,26 @@ export class PromotionManagementComponent {
   updateItem() {
     if (
       this.ItemQuantity <= 0 ||
-      this.DiscountPercentage <= 0
+      this.DiscountPercentage <= 0 
       // Kiểm tra các điều kiện khác ở đây
     ) {
       alert('Điền đầy đủ thông tin và giá trị hợp lệ');
       return;
     }
-
+  
     // Đảm bảo ItemObj có ID của khuyến mãi cần cập nhật
     if (!this.ItemObj.id) {
       alert('Không tìm thấy ID khuyến mãi cần cập nhật');
       return;
     }
-
+  
     // Cập nhật ItemObj với dữ liệu hiện tại từ form
     this.ItemObj.promotionCode = this.PromotionCode;
     this.ItemObj.itemQuantity = this.ItemQuantity;
     this.ItemObj.discountPercentage = this.DiscountPercentage;
     // Cập nhật các thuộc tính khác ở đây
-
-  //   // Gọi phương thức updateItem() từ DataService
+  
+    // Gọi phương thức updateItem() từ DataService
     this.data
       .updateItemPromotion(this.ItemObj)
       .then(() => {

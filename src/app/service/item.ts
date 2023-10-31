@@ -6,7 +6,8 @@ export interface Item{
     quantity: number;
     price: number;
     comments?: Comment[];
-    agency: string;
+    branch: string;
+    description: string;
 }
 
 export interface Comment{

@@ -30,7 +30,6 @@ const routes: Routes = [
   {path:'signup',component:SignupComponent},
   {path:'forgot',component:ForgotPasswordComponent},
   {path:'admin',component:AdminDashboardComponent},
-  {path:'nav',component:NavSidebarComponent},
   {path:'recipe',component:RecipeComponent},
   {path:'mod-item',component:ModItemComponent},
   {path:'notification',component:NotificationComponent},

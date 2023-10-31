@@ -445,6 +445,18 @@ section {
   border-bottom: var(--border-hover);
 }
 
+.dropdown-menu{
+  border: var(--border);
+  border-radius: var(--border-radius);
+  color: var(--main-color);
+  cursor: pointer;
+  padding: 0.9rem 1.5rem;
+}
+
+.dropdown-menu a:hover{
+  background-color: transparent;
+}
+
 /* MEDIA QUERIES */
 
 @media (max-width: 991px) {

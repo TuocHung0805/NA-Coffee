@@ -1,162 +1,3 @@
-// import { ingredient } from 'src/app/service/ingredient';
-// import { DataService } from 'src/app/service/data.service';
-// import { AuthService } from 'src/app/service/auth.service';
-// import { Component, OnInit } from '@angular/core';
-// import { MatSnackBar } from '@angular/material/snack-bar';
-// import { Router } from '@angular/router';
-
-
-// @Component({
-//   selector: 'app-ingredient',
-//   templateUrl: './ingredient.component.html',
-//   styleUrls: ['./ingredient.component.css']
-// })
-// export class IngredientComponent implements OnInit {
-//   today = new Date();
-//   ItemList: ingredient[] = [];
-//   ItemObj: ingredient = {
-
-//     id: '',
-//     name: '',
-//     quantity: '',
-//     importDate: this.today,
-//     origin: '',
-//     exp: new Date,
-//   };
-//   id: string = '';
-//   ItemName: string = '';
-//   ItemQuantity: string = '';
-//   ItemImportDate: Date = this.today
-//   ItemOrigin: string ='';
-//   ItemExp: Date = new Date(); // Gán giá trị mặc định là ngày hiện tại
-
-
-//   constructor(private router: Router, private auth: AuthService, private data: DataService, private snackBar: MatSnackBar) {}
-
-//   ngOnInit(): void {
-//     this.getAllItem();
-//   }
-//   getAllItem() {
-//     this.data.getAllItemIngredient().subscribe(
-//       (res) => {
-//         this.ItemList = res.map((e: any) => {
-//           const data = e.payload.doc.data();
-//           data.id = e.payload.doc.id;
-//           data.importDate = data.importDate.toDate()
-//           return data;
-//         });
-//       },
-//       (err) => {
-//         alert('Lỗi khi xử lý dữ liệu sản phẩm');
-//       }
-//     );
-//   }
-//   resetForm() {
-//     this.id = '';
-//     this.ItemName = '';
-//     this.ItemQuantity = '';
-//     this.ItemOrigin ='';
-//     this.ItemExp = new Date();
-//   }
-//   addItem() {
-//     if (
-//       this.ItemName === '' ||
-//       this.ItemQuantity === '' ||
-//       this.ItemOrigin === '' ||
-//       this.ItemExp === null
-//     ) {
-//       alert('Điền đầy đủ thông tin và giá trị hợp lệ');
-//       return;
-//     }
-
-
-//     this.ItemObj.name = this.ItemName;
-//     this.ItemObj.quantity = this.ItemQuantity;
-//     this.ItemObj.origin = this.ItemOrigin;
-//     this.ItemObj.exp=this.ItemExp;
-//     this.ItemObj.importDate = this.ItemImportDate;
-//     // Đặt các thuộc tính khác ở đây
-
-//     this.data.addItemIngredient(this.ItemObj);
-//     this.showSuccessToast('Thêm nguyên liệu thành công');
-//     this.resetForm();
-//     this.selectedItem = null;
-//   }
-
-//   private showSuccessToast(message: string): void {
-//     this.snackBar.open(message, 'Đóng', {
-//       duration: 3000, // Thời gian hiển thị toast message (đơn vị: milliseconds)
-//       verticalPosition: 'top',
-//       horizontalPosition: 'center',
-//       panelClass: ['success']
-//     });
-//   }
-
-//   selectedItem: ingredient | null = null;
-//   selectItem(item: ingredient) {
-//     this.selectedItem = item;
-//     this.id = item.id;
-//     this.ItemObj = { ...item }; // Sao chép thuộc tính của sản phẩm để cập nhật
-//     this.ItemName = item.name;
-//     this.ItemObj.origin = this.ItemOrigin;
-//     this.ItemObj.exp=this.ItemExp;
-//     this.ItemQuantity = item.quantity;
-//     this.ItemImportDate = item.importDate;
-//     // Đặt các thuộc tính khác ở đây
-//   }
-
-//   deleteItem(item: ingredient) {
-//     if (window.confirm('Bấm xác nhận để xoá mã khuyến mãi: ' + item.id + '?')) {
-//       this.data
-//         .deleteItemIngredient(item)
-//         .then(() => {
-//           this.showSuccessToast('Xoá nguyên liệu thành công')
-//           this.resetForm();
-//           this.selectedItem = null;
-//         })
-//         .catch((error) => {
-//           alert('Lỗi khi xoá nguyên liệu: ' + error);
-//         });
-//     }
-//   }
-
-//   updateItem() {
-//     if (
-//       this.ItemName === '' ||
-//       this.ItemQuantity === '' ||
-//       this.ItemOrigin === '' ||
-//       this.ItemExp === null
-//     ) {
-//       alert('Điền đầy đủ thông tin và giá trị hợp lệ');
-//       return;
-//     }
-
-//     // Đảm bảo ItemObj có ID của sản phẩm cần cập nhật
-//     if (!this.ItemObj.id) {
-//       alert('Không tìm thấy ID sản phẩm cần cập nhật');
-//       return;
-//     }
-
-//     // Cập nhật ItemObj với dữ liệu hiện tại từ form
-//     this.ItemObj.name = this.ItemName;
-//     this.ItemObj.quantity = this.ItemQuantity;
-//     this.ItemObj.origin = this.ItemOrigin;
-//     this.ItemObj.exp=this.ItemExp;
-//     this.ItemObj.importDate = this.ItemImportDate;
-
-//     // Gọi phương thức updateItem() từ DataService
-//     this.data
-//       .updateItemIngredient(this.ItemObj)
-//       .then(() => {
-//         this.showSuccessToast('Cập nhật sản phẩm thành công');
-//         this.resetForm();
-//       })
-//       .catch((error) => {
-//         alert('Lỗi khi cập nhật sản phẩm: ' + error);
-//       });
-//     this.selectedItem = null;
-//   }
-// }
 import { ingredient } from 'src/app/service/ingredient';
 import { DataService } from 'src/app/service/data.service';
 import { AuthService } from 'src/app/service/auth.service';
@@ -170,20 +11,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./ingredient.component.css']
 })
 export class IngredientComponent implements OnInit {
-  today = new Date();
   ItemList: ingredient[] = [];
   ItemObj: ingredient = {
     id: '',
     name: '',
     quantity: '',
-    importDate: this.today,
+    importDate: '',
     origin: '',
     exp: '',
   };
   id: string = '';
   ItemName: string = '';
   ItemQuantity: string = '';
-  ItemImportDate: Date = this.today;
+  ItemImportDate: string ='';
   ItemOrigin: string = '';
   ItemExp: string = '';
 
@@ -199,7 +39,6 @@ export class IngredientComponent implements OnInit {
         this.ItemList = res.map((e: any) => {
           const data = e.payload.doc.data();
           data.id = e.payload.doc.id;
-          data.importDate = data.importDate.toDate();
 
           return data;
         });

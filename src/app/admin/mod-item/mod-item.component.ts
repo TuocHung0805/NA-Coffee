@@ -21,7 +21,8 @@ export class ModItemComponent implements OnInit {
     type: '',
     price: 0,
     quantity: 0,
-    agency: ''
+    branch: '',
+    description: ''
   };
   id: string = '';
   ItemImage: string ='';
@@ -29,8 +30,8 @@ export class ModItemComponent implements OnInit {
   ItemQuantity: string = '';
   ItemPrice: string = '';
   ItemType: string = '';
-  ItemAgency: string ='';
-  agencies: any[] = [];
+  ItemBranch: string ='';
+  ItemDescription: string ='';
 
   constructor(private router: Router, private auth: AuthService, private data: DataService, private snackBar: MatSnackBar) {}
 
@@ -61,7 +62,8 @@ export class ModItemComponent implements OnInit {
     this.ItemPrice = '';
     this.ItemType = '';
     this.ItemImage = '';
-    this.ItemAgency='';
+    this.ItemBranch='';
+    this.ItemDescription ='';
   }
 
   viewItemDetails(item: any) {
@@ -76,7 +78,8 @@ export class ModItemComponent implements OnInit {
       this.ItemType === '' ||
       (this.ItemType === 'Cà phê hoà tan' && this.ItemQuantity === '') ||
       this.ItemImage === '' ||
-      this.ItemAgency ==='' // Check if the image field is empty
+      this.ItemDescription ==='' ||
+      this.ItemBranch ===''
     ) {
       alert('Điền đẩy đủ thông tin');
       return;
@@ -87,15 +90,8 @@ export class ModItemComponent implements OnInit {
     this.ItemObj.quantity = parseInt(this.ItemQuantity);
     this.ItemObj.price = parseFloat(this.ItemPrice);
     this.ItemObj.image = this.ItemImage;
-    this.ItemObj.agency = this.ItemAgency;
-
-    if(this.ItemType != 'Cà phê'){
-      if  (isNaN(this.ItemObj.quantity))
-      {
-        this.showSuccessToast('Lỗi thêm sản phẩm')
-        return;
-      }
-    }
+    this.ItemObj.branch = this.ItemBranch;
+    this.ItemObj.description = this.ItemDescription
 
 
 if  (isNaN(this.ItemObj.price))
@@ -133,7 +129,8 @@ if  (isNaN(this.ItemObj.price))
       (this.ItemType == 'Cà phê hoà tan' && this.ItemQuantity === '') ||
       this.ItemQuantity === '' ||
       this.ItemImage === '' ||
-      this.ItemAgency ==='' // Check if the image field is empty
+      this.ItemDescription ==='' ||
+      this.ItemBranch ===''
     ) {
       alert('Điền đầy đủ thông tin');
       return;
@@ -151,7 +148,8 @@ if  (isNaN(this.ItemObj.price))
     this.ItemObj.quantity = parseInt(this.ItemQuantity);
     this.ItemObj.price = parseFloat(this.ItemPrice);
     this.ItemObj.image = this.ItemImage;
-    this.ItemObj.agency = this.ItemAgency;
+    this.ItemObj.branch = this.ItemBranch;
+    this.ItemObj.description = this.ItemDescription
 
     // Gọi phương thức updateItem() từ DataService
     this.data
@@ -176,7 +174,8 @@ if  (isNaN(this.ItemObj.price))
     this.ItemQuantity = item.quantity.toString();
     this.ItemPrice = item.price.toString();
     this.ItemImage = item.image;
-    this.ItemAgency = item.agency;
+    this.ItemBranch = item.branch;
+    this.ItemDescription = item.description
   }
 
   private showSuccessToast(message: string): void {
