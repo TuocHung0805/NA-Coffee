@@ -55,7 +55,7 @@ export class MenuAgencyComponent implements OnInit {
   }
 
   goToItemDetail(product: Item) {
-    this.router.navigate(['/detail', product.id]);
+    this.router.navigate(['/detail-agency', product.id]);
   }
   searchQuery: string = '';
 

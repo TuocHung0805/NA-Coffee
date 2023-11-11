@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/NA-Coffee",
+    "public": "dist/coffee",
     "ignore": [
       "firebase.json",
       "**/.*",
