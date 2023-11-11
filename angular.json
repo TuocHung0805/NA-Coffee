@@ -38,12 +38,20 @@
               "budgets": [
                 {
                   "type": "initial",
+<<<<<<< Updated upstream
                   "maximumWarning": "2mb",
+=======
+                  "maximumWarning": "2.5mb",
+>>>>>>> Stashed changes
                   "maximumError": "4mb"
                 },
                 {
                   "type": "anyComponentStyle",
+<<<<<<< Updated upstream
                   "maximumWarning": "2mb",
+=======
+                  "maximumWarning": "2.5mb",
+>>>>>>> Stashed changes
                   "maximumError": "4mb"
                 }
               ],
