@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit{
     (function(){
     var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
     s1.async=true;
-    s1.src='https://embed.tawk.to/6545e082a84dd54dc4886a76/1hecfa05e';
+    s1.src='https://embed.tawk.to/654faea3958be55aeaaeb87f/1hevk4ch0';
     s1.charset='UTF-8';
     s1.setAttribute('crossorigin','*');
     s0.parentNode.insertBefore(s1,s0);
@@ -32,3 +32,5 @@ export class HomeComponent implements OnInit{
     this.renderer.appendChild(document.body, el);
   }
 }
+
+
