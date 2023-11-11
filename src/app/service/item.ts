@@ -11,7 +11,7 @@ export interface Item{
 }
 
 export interface Comment{
-    uid: string;
+    id: string;
     username: string;
     text: string;
 }

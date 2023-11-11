@@ -55,7 +55,7 @@ export class MenuComponent implements OnInit {
   }
 
   goToItemDetail(product: Item) {
-    this.router.navigate(['/menu', product.id]);
+    this.router.navigate(['/detail', product.id]);
   }
   searchQuery: string = '';
 
@@ -87,6 +87,7 @@ export class MenuComponent implements OnInit {
       this.searchResults = [];
     }
   }
+  
 }
 
 
