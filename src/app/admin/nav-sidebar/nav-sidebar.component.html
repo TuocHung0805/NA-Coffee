@@ -10,34 +10,50 @@
           aria-current="true"
           routerLink="/admin"
         >
-          <i class="fas fa-tachometer-alt fa-fw me-3"></i
-          ><span>Trang chủ</span>
+          <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Trang chủ</span>
         </a>
         <a
           routerLink="mod-item"
           class="list-group-item list-group-item-action py-2 ripple"
           routerLink="/mod-item"
         >
-          <i class="fas fa-mug-hot fa-fw me-3"></i
-          ><span>Quản lý sản phẩm</span>
+          <i class="fas fa-mug-hot fa-fw me-3"></i><span>Quản lý sản phẩm</span>
         </a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple" routerLink="/user-management"
+        <a
+          class="list-group-item list-group-item-action py-2 ripple"
+          routerLink="/user-management"
           ><i class="fas fa-user fa-fw me-3"></i><span>Quản lý nhân sự</span></a
         >
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple" routerLink="/recipe"
-          ><i class="fas fa-file fa-fw me-3"></i><span>Quản lý công thức</span></a
+
+        <a
+          class="list-group-item list-group-item-action py-2 ripple"
+          routerLink="/recipe"
+          ><i class="fas fa-file fa-fw me-3"></i
+          ><span>Quản lý công thức</span></a
         >
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple" routerLink="/ingredient"
-        ><i class="fas fa-lemon fa-fw me-3"></i><span>Quản lý nguyên liệu</span></a
-      >
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple" routerLink=""
-        ><i class="fas fa-code-branch fa-fw me-3"></i><span>Quản lý chi nhánh</span></a
-      >
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple" routerLink="/promotion">
-          <i class="fas fa-percent fa-fw me-3"></i><span>Quản lý khuyến mãi</span>
+        <a
+          class="list-group-item list-group-item-action py-2 ripple"
+          routerLink="/ingredient"
+          ><i class="fas fa-lemon fa-fw me-3"></i
+          ><span>Quản lý nguyên liệu</span></a
+        >
+        <a
+          class="list-group-item list-group-item-action py-2 ripple"
+          routerLink="/agency"
+          ><i class="fas fa-code-branch fa-fw me-3"></i
+          ><span>Quản lý chi nhánh</span></a
+        >
+        <a
+          class="list-group-item list-group-item-action py-2 ripple"
+          routerLink="/promotion"
+        >
+          <i class="fas fa-percent fa-fw me-3"></i
+          ><span>Quản lý khuyến mãi</span>
         </a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple" routerLink="/order"
-          ><i class="fas fa-chart-bar fa-fw me-3"></i><span>Kiểm tra đơn hàng</span></a
+        <a
+          class="list-group-item list-group-item-action py-2 ripple"
+          routerLink="/order"
+          ><i class="fas fa-chart-bar fa-fw me-3"></i><span>Doanh thu</span></a
         >
       </div>
     </div>
@@ -65,12 +81,13 @@
       </button>
 
       <!-- Brand -->
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand">
         <img
           src="../../../assets/image/home-img-3.png"
           height="25"
           alt=" Logo"
           loading="lazy"
+          routerLink="/"
         />
       </a>
       <!-- Search form -->

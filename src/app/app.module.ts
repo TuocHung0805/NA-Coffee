@@ -31,6 +31,9 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { HomeAgencyComponent } from './page-1/home-agency/home-agency.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { AgencyComponent } from './admin/agency/agency.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +57,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     PromotionManagementComponent,
     UserManagementComponent,
     RecipeComponent,
+    HomeAgencyComponent,
+    AgencyComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +71,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AngularFireDatabaseModule,
     FormsModule,
     MatSnackBarModule,
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

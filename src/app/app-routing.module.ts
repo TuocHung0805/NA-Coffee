@@ -18,7 +18,7 @@ import { OrderListComponent } from './admin/order-list/order-list.component';
 import { NotificationComponent } from './admin/notification/notification.component';
 import { ModItemComponent } from './admin/mod-item/mod-item.component';
 import { IngredientComponent } from './admin/ingredient/ingredient.component';
-
+import { AgencyComponent } from './admin/agency/agency.component';
 const routes: Routes = [
   {path: '', component:HomeComponent},
   {path: 'blog', component:BlogComponent},
@@ -37,7 +37,7 @@ const routes: Routes = [
   {path:'order',component:OrderListComponent},
   {path:'promotion',component:PromotionManagementComponent},
   {path:'user-management',component:UserManagementComponent},
-
+  {path:'agency',component:AgencyComponent},
 ];
 
 @NgModule({
