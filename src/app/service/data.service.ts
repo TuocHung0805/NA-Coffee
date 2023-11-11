@@ -6,6 +6,7 @@ import { ingredient } from './ingredient';
 import {recipe} from './recipe';
 import { user } from './user';
 import { agency } from './agency';
+import { blog } from './blog';
 
 @Injectable({
     providedIn: 'root'
@@ -114,4 +115,20 @@ export class DataService {
     updateItemAgency(item: agency) {
         return this.afs.doc('/Agency/' + item.id).update(item);
     }
+    getAllItemBlog() {
+      return this.afs.collection('/Blog').snapshotChanges();
+  }
+
+  addItemBlog(item: blog) {
+      item.id = this.afs.createId();
+      return this.afs.collection('/Blog').add(item);
+  }
+
+  deleteItemBlog(item: blog) {
+      return this.afs.doc('/Blog/' + item.id).delete();
+  }
+
+  updateItemBlog(item: blog) {
+      return this.afs.doc('/Blog/' + item.id).update(item);
+  }
 }

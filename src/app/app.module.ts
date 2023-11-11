@@ -34,6 +34,19 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HomeAgencyComponent } from './page-1/home-agency/home-agency.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AgencyComponent } from './admin/agency/agency.component';
+import { HeaderAgencyComponent } from './page-1/header-agency/header-agency.component';
+import { MenuAgencyComponent } from './page-1/menu-agency/menu-agency.component';
+import { NgxPayPalModule } from 'ngx-paypal';
+
+import { BlogAdminComponent } from './admin/blog-admin/blog-admin.component';
+import { VoucherPageComponent } from './page/voucher-page/voucher-page.component';
+import { ModBlogComponent } from './page-1/admin-agency/mod-blog/mod-blog.component';
+import { NavComponent } from './page-1/admin-agency/nav/nav.component';
+import { OrderComponent } from './page-1/admin-agency/order/order.component';
+import { VoucherComponent } from './page-1/admin-agency/voucher/voucher.component';
+import { ModAgencyComponent } from './page-1/admin-agency/mod-agency/mod-agency.component';
+import { DashboardAgencyComponent } from './page-1/admin-agency/dashboard-agency/dashboard-agency.component';
+import { IngredientAgencyComponent } from './page-1/admin-agency/ingredient-agency/ingredient-agency.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +72,18 @@ import { AgencyComponent } from './admin/agency/agency.component';
     RecipeComponent,
     HomeAgencyComponent,
     AgencyComponent,
+    HeaderAgencyComponent,
+    MenuAgencyComponent,
+
+    BlogAdminComponent,
+    VoucherPageComponent,
+    ModBlogComponent,
+    NavComponent,
+    OrderComponent,
+    VoucherComponent,
+    ModAgencyComponent,
+    DashboardAgencyComponent,
+    IngredientAgencyComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +97,7 @@ import { AgencyComponent } from './admin/agency/agency.component';
     FormsModule,
     MatSnackBarModule,
     NgxPaginationModule,
+    NgxPayPalModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,41 +1,62 @@
 <app-header></app-header>
-<div class="header">
-  <h2>Blog Name</h2>
-</div>
+<body class="dark-scheme">
+  <div id="wrapper">
+    <!-- content begin -->
+    <section id="section-specials" class="jarallax" aria-label="section">
+      <section id="subheader" class="jarallax">
+        <img class="jarallax-img" src="../../../assets/slider/3.jpg" alt="" />
+        <div class="center-y relative text-center">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12 text-center ab">
+                <h1>Blog</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <!-- <div class="col-lg-4 col-md-6 text-center">
+          <div class="de-title">
+            <h5 class="s1 wow fadeInUp" data-wow-delay=".5s">
+              <span class="id-color-2">Latest</span>
+            </h5>
+            <h2 class="wow fadeInUp" data-wow-delay=".75s">Blog</h2>
+          </div>
+        </div> -->
+          <div class="col-lg-4 col-md-6" *ngFor="let item of items | async">
+            <div class="d-items">
+              <div class="card-image-1 mod-b">
+                <a href="blog-single" class="d-text">
+                  <div class="d-inner">
+                    <span class="atr-date">{{ item.uploadDate }}</span>
+                    <h3>
+                      {{ item.title }}
+                    </h3>
+                    <p>
+                      {{ item.content }}
+                    </p>
+                    <h5 class="d-tag">all about coffee</h5>
+                  </div>
+                </a>
+                <img src="{{ item.image }}" class="img-fluid" alt="" />
+              </div>
+            </div>
+          </div>
 
-<div class="row">
-  <div class="leftcolumn">
-    <div class="card">
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Dec 7, 2017</h5>
-      <div class="fakeimg" style="height: 200px">Image</div>
-      <p>Some text..</p>
-    </div>
-    <div class="card">
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Sep 2, 2017</h5>
-      <div class="fakeimg" style="height: 200px">Image</div>
-      <p>Some text..</p>
-    </div>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              <li class="page-item active">
+                <a class="page-link" href="blog">1</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="blog">2</a></li>
+              <li class="page-item"><a class="page-link" href="blog">3</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </section>
   </div>
-  <div class="rightcolumn">
-    <div class="card">
-      <h2>About Me</h2>
-      <div class="fakeimg" style="height: 100px">Image</div>
-      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-    </div>
-    <div class="card">
-      <h3>Popular Post</h3>
-      <div class="fakeimg">Image</div>
-      <br />
-      <div class="fakeimg">Image</div>
-      <br />
-      <div class="fakeimg">Image</div>
-    </div>
-    <div class="card">
-      <h3>Follow Me</h3>
-      <p>Some text..</p>
-    </div>
-  </div>
-</div>
+</body>
 <app-footer></app-footer>

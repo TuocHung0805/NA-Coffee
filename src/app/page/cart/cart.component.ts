@@ -6,6 +6,8 @@ import { Item } from 'src/app/service/item';
 import { user } from 'src/app/service/user';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
+import { recipe } from 'src/app/service/recipe';
 
 @Component({
   selector: 'app-cart',
@@ -21,6 +23,7 @@ export class CartComponent {
   isLoggedIn: boolean = false;
   paymentHandler: any = null;
   discountAmount: number = 0;
+  public payPalConfig?: IPayPalConfig;
 
   constructor(
     private cartService: CartService,
@@ -34,6 +37,7 @@ export class CartComponent {
   ngOnInit(): void {
     this.cartItems = this.cartService.getCartItems();
     this.calculateTotal();
+    this.initConfig((this.total - this.discountAmount) / 25000);
 
     this.authService.afAuth.authState.subscribe((user: any) => {
       this.isLoggedIn = !!user;
@@ -146,6 +150,99 @@ export class CartComponent {
         window.alert('Lưu thông tin đơn hàng của khách không thành công!');
       }
     }
+  }
+
+  private initConfig(total: any): void {
+    this.payPalConfig = {
+      currency: 'EUR',
+      clientId: 'sb',
+      createOrderOnClient: (data) => <ICreateOrderRequest>{
+        intent: 'CAPTURE',
+        purchase_units: [
+          {
+            amount: {
+              currency_code: 'EUR',
+              value: total,
+              breakdown: {
+                item_total: {
+                  currency_code: 'EUR',
+                  value: total
+                }
+              }
+            },
+            items: [
+              {
+                name: 'Enterprise Subscription',
+                quantity: '1',
+                category: 'DIGITAL_GOODS',
+                unit_amount: {
+                  currency_code: 'EUR',
+                  value: total,
+                },
+              }
+            ]
+          }
+        ]
+      },
+      advanced: {
+        commit: 'true'
+      },
+      style: {
+        label: 'paypal',
+        layout: 'vertical'
+      },
+      onApprove: (data, actions) => {
+        console.log('onApprove - transaction was approved, but not authorized', data, actions);
+        actions.order.get().then((details: any) => {
+          console.log('onApprove - you can get full order details inside onApprove: ', details);
+        });
+        if (this.isLoggedIn && this.userInfo) {
+          // Cập nhật thông tin người dùng từ form nhập liệu
+          this.userInfo.displayName = this.guestName;
+          this.userInfo.email = this.guestEmail;
+          this.userInfo.address = this.guestAddress;
+          this.userInfo.phone = this.guestPhone;
+          if (this.selectedPaymentMethod == 'thẻ tín dụng') {
+
+            this.authService.updateUserInfo(this.userInfo.uid, this.userInfo)
+              .then(() => {
+                this.showSuccessToast('Đặt hàng thành công!');
+                this.saveOrderToFirestore();
+              })
+              .catch((error) => {
+                window.alert('Lưu thông tin người dùng không thành công!');
+              });
+          }
+          else {
+            this.authService.updateUserInfo(this.userInfo.uid, this.userInfo)
+              .then(() => {
+                this.showSuccessToast('Đặt hàng thành công!');
+                this.saveOrderToFirestore();
+              })
+              .catch((error) => {
+                window.alert('Lưu thông tin người dùng không thành công!');
+              });
+          }
+        }
+        else{
+          this.saveOrderToFirestore();
+          this.showSuccessToast('Đặt hàng thành công!');
+        }
+      },
+      onClientAuthorization: (data) => {
+        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+        // this.showSuccess = true;
+      },
+      onCancel: (data, actions) => {
+        console.log('OnCancel', data, actions);
+      },
+      onError: err => {
+        console.log('OnError', err);
+      },
+      onClick: (data, actions) => {
+        console.log('onClick', data, actions);
+      },
+    };
   }
 
   saveOrderToFirestore() {

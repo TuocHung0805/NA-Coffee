@@ -39,7 +39,7 @@ section {
   background: none;
   cursor: pointer;
   margin-top: 1rem;
-  font-size: 1.7rem;
+  font-size: 1.3rem;
 }
 
 .btn:hover {
@@ -445,7 +445,7 @@ section {
   border-bottom: var(--border-hover);
 }
 
-.dropdown-menu{
+.dropdown-menu {
   border: var(--border);
   border-radius: var(--border-radius);
   color: var(--main-color);
@@ -453,7 +453,7 @@ section {
   padding: 0.9rem 1.5rem;
 }
 
-.dropdown-menu a:hover{
+.dropdown-menu a:hover {
   background-color: transparent;
 }
 

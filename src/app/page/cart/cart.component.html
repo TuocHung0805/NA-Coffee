@@ -25,13 +25,13 @@
                   >
                     <div class="col-md-2 col-lg-2 col-xl-2">
                       <img
-                        src="{{item.image}}"
+                        src="{{ item.image }}"
                         class="img-fluid rounded-3"
                         alt="Starbuck"
                       />
                     </div>
                     <div class="col-md-3 col-lg-3 col-xl-3">
-                      <h6 class="text-black mb-0">{{item.name}}</h6>
+                      <h6 class="text-black mb-0">{{ item.name }}</h6>
                     </div>
                     <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
                       <input
@@ -45,10 +45,15 @@
                       />
                     </div>
                     <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0">{{ item.price * item.quantity | number : "1.0-0" }} ₫</h6>
+                      <h6 class="mb-0">
+                        {{ item.price * item.quantity | number : "1.0-0" }} ₫
+                      </h6>
                     </div>
                     <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                      <a class="text-muted" (click)="removeFromCart(item)" style="cursor: pointer;"
+                      <a
+                        class="text-muted"
+                        (click)="removeFromCart(item)"
+                        style="cursor: pointer"
                         ><i class="fas fa-times"></i
                       ></a>
                     </div>
@@ -101,7 +106,7 @@
                         />
                       </div>
                     </form>
-                  </div>                  
+                  </div>
                   <div class="pt-5">
                     <h6 class="mb-0">
                       <a routerLink="" class="text-body"
@@ -117,9 +122,14 @@
                   <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
                   <hr class="my-4" />
 
-                  <div class="d-flex justify-content-between mb-4" *ngFor="let item of cartItems">
-                    <h5 class="text-uppercase">{{item.name}}</h5>
-                    <h5>{{item.price * item.quantity | number : "1.0-0"}} ₫</h5>
+                  <div
+                    class="d-flex justify-content-between mb-4"
+                    *ngFor="let item of cartItems"
+                  >
+                    <h5 class="text-uppercase">{{ item.name }}</h5>
+                    <h5>
+                      {{ item.price * item.quantity | number : "1.0-0" }} ₫
+                    </h5>
                   </div>
 
                   <h5 class="text-uppercase mb-3">Gift code</h5>
@@ -127,17 +137,19 @@
                   <div class="mb-5">
                     <div class="form-outline">
                       <input
-                      type="text"
-                      id="promotion"
-                      name="promotion"
-                      [(ngModel)]="promotion"
+                        type="text"
+                        id="promotion"
+                        name="promotion"
+                        [(ngModel)]="promotion"
                         class="form-control form-control-lg"
                       />
                       <label class="form-label" for="form3Examplea2"
                         >Enter your code</label
                       >
                     </div>
-                    <button class="btn btn-dark" (click)="applyPromotion()">Áp dụng mã khuyến mãi</button>
+                    <button class="btn btn-dark" (click)="applyPromotion()">
+                      Áp dụng mã khuyến mãi
+                    </button>
                   </div>
                   <form>
                     <label>
@@ -160,7 +172,10 @@
                       />
                       Thẻ tín dụng
                     </label>
-                    </form>
+                    <div *ngIf="selectedPaymentMethod == 'thẻ tín dụng'">
+                      <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                    </div>
+                  </form>
                   <hr class="my-4" />
 
                   <div class="d-flex justify-content-between mb-5">
@@ -182,7 +197,7 @@
                     data-mdb-ripple-color="dark"
                     (click)="checkout()"
                   >
-                    Check out
+                    Thanh Toán
                   </button>
                 </div>
               </div>
