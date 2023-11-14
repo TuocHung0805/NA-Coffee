@@ -155,14 +155,12 @@ export class CartComponent {
                 ref.where('nameLowercase', '==', ingredientInfo.value.toLowerCase())
               );
                       const ingredientQuerySnapshot = await ingredientQuery.get().toPromise();
-
               if (ingredientQuerySnapshot!.size !== 0) {
                 const ingredientDoc = ingredientQuerySnapshot!.docs[0];
                 const firestoreIngredient = ingredientDoc.data() as ingredient;
 
                   // Cập nhật số lượng nguyên liệu bằng cách trừ đi từ số lượng của mục trong giỏ hàng
                 const newQuantity = Number(firestoreIngredient.quantity) - (Number(ingredientInfo.quantity) * Number(item.quantity));
-
                 ingredientDoc.ref.update({ quantity: newQuantity });
 }
             }

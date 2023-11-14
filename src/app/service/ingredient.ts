@@ -6,4 +6,5 @@ export interface ingredient{
   importDate: string;
   origin: string;
   exp:string;
+
 }
