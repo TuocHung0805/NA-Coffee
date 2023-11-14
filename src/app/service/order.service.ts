@@ -35,5 +35,4 @@ export class OrderService {
     return this.afs.collection('orders').doc(orderId).valueChanges();
   }
   
-  
 }

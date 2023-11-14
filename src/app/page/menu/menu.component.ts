@@ -12,7 +12,7 @@ import { CartService } from 'src/app/service/cart.service';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  private itemsCollection: AngularFirestoreCollection<Item>;
+  itemsCollection: AngularFirestoreCollection<Item>;
   searchResults: Item[] = [];
   items: Observable<Item[]>;
   selectedAgency = localStorage.getItem('selectedAgency');
@@ -20,12 +20,14 @@ export class MenuComponent implements OnInit {
   constructor(private afs: AngularFirestore, private router: Router, private cartService: CartService) {
     this.itemsCollection = this.afs.collection<Item>('Items');
     this.items = this.itemsCollection.valueChanges()
+
    }
 
   ngOnInit(): void {
     this.sortByName();
 
   }
+
 
 
   addToCart(product: Item) {

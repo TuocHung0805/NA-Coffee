@@ -22,9 +22,6 @@
   flex-wrap: wrap;
   justify-content: center;
 }
-.btn {
-  margin-left: 150px;
-}
 
 .order-container {
   border: 1px solid #ccc;
