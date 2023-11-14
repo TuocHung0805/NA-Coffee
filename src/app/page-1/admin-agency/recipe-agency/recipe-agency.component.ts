@@ -35,7 +35,7 @@ export class RecipeAgencyComponent implements OnInit {
   ngOnInit(): void {
     this.getAllItem();
     this.getAllItemAgency()
-    this.getAllItemIngredient() 
+    this.getAllItemIngredient()
   }
   getAllItem() {
     this.data.getAllItemRecipe().subscribe(
@@ -198,7 +198,7 @@ export class RecipeAgencyComponent implements OnInit {
   }
 
   addInput() {
-    this.inputID = this.inputItems.length +1  
+    this.inputID = this.inputItems.length +1
     const newId = this.inputID + 1; // Tạo một khóa duy nhất cho dòng mới
     this.inputItems.push(newId);
     this.ItemIngredient.push({ id: newId, value: '', quantity: 0});

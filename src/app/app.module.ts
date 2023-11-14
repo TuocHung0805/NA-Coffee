@@ -52,6 +52,7 @@ import { VoucherAgencyComponent } from './page-1/voucher-agency/voucher-agency.c
 import { CartAgencyComponent } from './page-1/cart-agency/cart-agency.component';
 import { ModAgencyComponent } from './page-1/admin-agency/mod-agency/mod-agency.component';
 import { RecipeAgencyComponent } from './page-1/admin-agency/recipe-agency/recipe-agency.component';
+import { ShowCouponComponent } from './page/show-coupon/show-coupon.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,7 +87,7 @@ import { RecipeAgencyComponent } from './page-1/admin-agency/recipe-agency/recip
     NavComponent,
     OrderComponent,
     VoucherComponent,
-   
+
     DashboardAgencyComponent,
     IngredientAgencyComponent,
     BlogAgencyComponent,
@@ -94,6 +95,7 @@ import { RecipeAgencyComponent } from './page-1/admin-agency/recipe-agency/recip
     CartAgencyComponent,
     ModAgencyComponent,
     RecipeAgencyComponent,
+    ShowCouponComponent,
   ],
   imports: [
     BrowserModule,

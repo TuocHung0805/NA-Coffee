@@ -15,6 +15,7 @@ export class IngredientComponent implements OnInit {
   ItemObj: ingredient = {
     id: '',
     name: '',
+    nameLowercase:'',
     quantity: '',
     importDate: '',
     origin: '',
@@ -71,6 +72,7 @@ export class IngredientComponent implements OnInit {
     }
 
     this.ItemObj.name = this.ItemName;
+    this.ItemObj.nameLowercase = this.ItemName.toLowerCase();
     this.ItemObj.quantity = this.ItemQuantity;
 
     this.ItemObj.origin = this.ItemOrigin;
@@ -151,6 +153,7 @@ export class IngredientComponent implements OnInit {
 
     // Cập nhật ItemObj với dữ liệu hiện tại từ form
     this.ItemObj.name = this.ItemName;
+    this.ItemObj.nameLowercase = this.ItemName.toLowerCase();
     this.ItemObj.quantity = this.ItemQuantity;
 
     this.ItemObj.importDate = this.ItemImportDate;
