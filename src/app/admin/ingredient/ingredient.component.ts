@@ -33,7 +33,7 @@ export class IngredientComponent implements OnInit {
   ngOnInit(): void {
     this.getAllItem();
   }
-
+//
   getAllItem() {
     this.data.getAllItemIngredient().subscribe(
       (res) => {
