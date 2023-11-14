@@ -15,6 +15,7 @@ export class IngredientAgencyComponent implements OnInit {
   ItemObj: ingredient = {
     id: '',
     name: '',
+    nameLowercase: '',
     quantity: '',
     importDate: '',
     origin: '',

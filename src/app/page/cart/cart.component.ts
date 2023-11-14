@@ -122,7 +122,7 @@ export class CartComponent {
         await this.authService.updateUserInfo(this.userInfo.uid, this.userInfo);
       }
       for (const item of this.cartItems) {
-        if (item.type != 'Cà phê') {
+        if (item.type.toLowerCase() != 'cà phê') {
           const productQuery = this.afs.collection('Items', (ref) =>
             ref.where('id', '==', item.id)
           );
@@ -146,30 +146,30 @@ export class CartComponent {
           const recipeQuerySnapshot = await recipeQuery.get().toPromise();
           // Nếu có một công thức có cùng tên tồn tại, xử lý nguyên liệu của nó
           if (recipeQuerySnapshot!.size !== 0) {
-            for (const recipeDoc of recipeQuerySnapshot!.docs) {
+                        for (const recipeDoc of recipeQuerySnapshot!.docs) {
               const recipeData = recipeDoc.data() as recipe;
 
               // Lặp qua các nguyên liệu trong công thức
-              for (const ingredientInfo of recipeData.ingredients) {
-                const ingredientQuery = this.afs.collection('ingredient', (ref) =>
-                  ref.where('nameLowercase', '==', ingredientInfo.value.toLowerCase())
-                );
-                const ingredientQuerySnapshot = await ingredientQuery.get().toPromise();
-
-                if (ingredientQuerySnapshot!.size !== 0) {
-                  const ingredientDoc = ingredientQuerySnapshot!.docs[0];
-                  const firestoreIngredient = ingredientDoc.data() as ingredient;
+            for (const ingredientInfo of recipeData.ingredients) {
+              const ingredientQuery = this.afs.collection('ingredient', (ref) =>
+                ref.where('nameLowercase', '==', ingredientInfo.value.toLowerCase())
+              );
+                      const ingredientQuerySnapshot = await ingredientQuery.get().toPromise();
+        
+              if (ingredientQuerySnapshot!.size !== 0) {
+                const ingredientDoc = ingredientQuerySnapshot!.docs[0];
+                const firestoreIngredient = ingredientDoc.data() as ingredient;
 
                   // Cập nhật số lượng nguyên liệu bằng cách trừ đi từ số lượng của mục trong giỏ hàng
-                  const newQuantity = Number(firestoreIngredient.quantity) - (Number(ingredientInfo.quantity) * Number(item.quantity));
-
-                  ingredientDoc.ref.update({ quantity: newQuantity });
-                }
-              }
+                const newQuantity = Number(firestoreIngredient.quantity) - (Number(ingredientInfo.quantity) * Number(item.quantity));
+  
+                ingredientDoc.ref.update({ quantity: newQuantity });
+}
             }
           }
         }
       }
+    }
 
       this.showSuccessToast('Đặt hàng thành công!');
       this.saveOrderToFirestore();
@@ -237,8 +237,7 @@ export class CartComponent {
 
             this.authService.updateUserInfo(this.userInfo.uid, this.userInfo)
               .then(() => {
-                this.showSuccessToast('Đặt hàng thành công!');
-                this.saveOrderToFirestore();
+                this.checkout()
               })
               .catch((error) => {
                 window.alert('Lưu thông tin người dùng không thành công!');
@@ -247,8 +246,7 @@ export class CartComponent {
           else {
             this.authService.updateUserInfo(this.userInfo.uid, this.userInfo)
               .then(() => {
-                this.showSuccessToast('Đặt hàng thành công!');
-                this.saveOrderToFirestore();
+                this.checkout()
               })
               .catch((error) => {
                 window.alert('Lưu thông tin người dùng không thành công!');
