@@ -23,8 +23,10 @@ import { HomeAgencyComponent } from './page-1/home-agency/home-agency.component'
 import { HeaderAgencyComponent } from './page-1/header-agency/header-agency.component';
 import { MenuAgencyComponent } from './page-1/menu-agency/menu-agency.component';
 import { BlogAdminComponent } from './admin/blog-admin/blog-admin.component';
-
 import { VoucherPageComponent } from './page/voucher-page/voucher-page.component';
+
+
+
 import { DashboardAgencyComponent } from './page-1/admin-agency/dashboard-agency/dashboard-agency.component';
 import { IngredientAgencyComponent } from './page-1/admin-agency/ingredient-agency/ingredient-agency.component';
 import { ModAgencyComponent } from './page-1/admin-agency/mod-agency/mod-agency.component';
@@ -32,6 +34,12 @@ import { ModBlogComponent } from './page-1/admin-agency/mod-blog/mod-blog.compon
 import { NavComponent } from './page-1/admin-agency/nav/nav.component';
 import { OrderComponent } from './page-1/admin-agency/order/order.component';
 import { VoucherComponent } from './page-1/admin-agency/voucher/voucher.component';
+import { BlogAgencyComponent } from './page-1/blog-agency/blog-agency.component';
+import { VoucherAgencyComponent } from './page-1/voucher-agency/voucher-agency.component';
+import { CartAgencyComponent } from './page-1/cart-agency/cart-agency.component';
+import { RecipeAgencyComponent } from './page-1/admin-agency/recipe-agency/recipe-agency.component';
+
+
 const routes: Routes = [
   {path: '', component:HomeComponent},
   {path: 'blog', component:BlogComponent},
@@ -57,13 +65,17 @@ const routes: Routes = [
 
   {path:'admin-blog',component:BlogAdminComponent},
   {path:'voucher-page',component:VoucherPageComponent},
-  {path:'dashboard-agency',component:DashboardAgencyComponent},
+  {path:'admin-agency',component:DashboardAgencyComponent},
   {path:'ingredient-agency',component:IngredientAgencyComponent},
   {path:'mod-agency',component:ModAgencyComponent},
   {path:'mod-blog',component:ModBlogComponent},
   {path:'nav',component:NavComponent},
   {path:'order-agency',component:OrderComponent},
   {path:'voucher',component:VoucherComponent},
+  {path:'voucher-agency',component:VoucherAgencyComponent},
+  {path:'blog-agency',component:BlogAgencyComponent},
+  {path:'cart-agency',component:CartAgencyComponent},
+  {path:'recipe-agency',component:RecipeAgencyComponent},
 
 
 ];

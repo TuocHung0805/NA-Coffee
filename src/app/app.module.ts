@@ -44,9 +44,14 @@ import { ModBlogComponent } from './page-1/admin-agency/mod-blog/mod-blog.compon
 import { NavComponent } from './page-1/admin-agency/nav/nav.component';
 import { OrderComponent } from './page-1/admin-agency/order/order.component';
 import { VoucherComponent } from './page-1/admin-agency/voucher/voucher.component';
-import { ModAgencyComponent } from './page-1/admin-agency/mod-agency/mod-agency.component';
+
 import { DashboardAgencyComponent } from './page-1/admin-agency/dashboard-agency/dashboard-agency.component';
 import { IngredientAgencyComponent } from './page-1/admin-agency/ingredient-agency/ingredient-agency.component';
+import { BlogAgencyComponent } from './page-1/blog-agency/blog-agency.component';
+import { VoucherAgencyComponent } from './page-1/voucher-agency/voucher-agency.component';
+import { CartAgencyComponent } from './page-1/cart-agency/cart-agency.component';
+import { ModAgencyComponent } from './page-1/admin-agency/mod-agency/mod-agency.component';
+import { RecipeAgencyComponent } from './page-1/admin-agency/recipe-agency/recipe-agency.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,9 +86,14 @@ import { IngredientAgencyComponent } from './page-1/admin-agency/ingredient-agen
     NavComponent,
     OrderComponent,
     VoucherComponent,
-    ModAgencyComponent,
+   
     DashboardAgencyComponent,
     IngredientAgencyComponent,
+    BlogAgencyComponent,
+    VoucherAgencyComponent,
+    CartAgencyComponent,
+    ModAgencyComponent,
+    RecipeAgencyComponent,
   ],
   imports: [
     BrowserModule,
