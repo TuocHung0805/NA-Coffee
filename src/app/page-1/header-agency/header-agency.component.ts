@@ -18,11 +18,11 @@ export class HeaderAgencyComponent implements OnInit {
   user$: Observable<firebase.default.User | null>;
   displayName: string = '';
   userInfo: user | any;
-  isAdmin = false;
+  isAdminBranch = false;
   cartItemCount: number = 0;
   id: any;
   notificationCount: number = 0;
-  isAdminBranch: boolean = false;
+  isAdminUserBranch: boolean = false;
   agencies: any[] = [];
   selectedValue: string | null = null;
   selectedAgency: string | null = null;
@@ -64,7 +64,7 @@ export class HeaderAgencyComponent implements OnInit {
         const userRef = this.afs.doc(`users/${user.uid}`);
         const userSnapshot = await userRef.get().toPromise();
         const userData = userSnapshot?.data() as user;
-        this.isAdminBranch = userData?.role === 'admin' ? true : false;
+        this.isAdminUserBranch = userData?.role === 'admin-agency' ? true : false;
         this.authService.getUserInfo(user.uid).subscribe((userInfo) => {
           this.userInfo = userInfo;
           if (this.userInfo) {
@@ -72,7 +72,7 @@ export class HeaderAgencyComponent implements OnInit {
           }
         });
       } else {
-        this.isAdminBranch = false;
+        this.isAdminUserBranch = false;
       }
     });
 
@@ -93,7 +93,7 @@ export class HeaderAgencyComponent implements OnInit {
   }
 
   gotoCart() {
-    this.router.navigate(['/cart']);
+    this.router.navigate(['/cart-agency']);
   }
 
   toggleDropdown() {

@@ -14,70 +14,69 @@ import { recipe } from 'src/app/service/recipe';
   styleUrls: ['./cart-agency.component.css']
 })
 export class CartAgencyComponent {
-  
-    cartItems: Item[] = [];
-    guestInfo: any = {};
-    total: number = 0;
-    promotion: any = '';
-    userInfo: user | any;
-    isLoggedIn: boolean = false;
-    paymentHandler: any = null;
-    discountAmount: number = 0;
-    public payPalConfig?: IPayPalConfig;
 
-    constructor(
-      private cartService: CartService,
-      private authService: AuthService,
-      private afs: AngularFirestore,
-      private renderer: Renderer2,
-      private fb: FormBuilder,
-      private snackBar: MatSnackBar
-    ) {}
+  cartItems: Item[] = [];
+  guestInfo: any = {};
+  total: number = 0;
+  promotion: any = '';
+  userInfo: user | any;
+  isLoggedIn: boolean = false;
+  paymentHandler: any = null;
+  discountAmount: number = 0;
+  public payPalConfig?: IPayPalConfig;
 
-    ngOnInit(): void {
-      this.cartItems = this.cartService.getCartItems();
-      this.calculateTotal();
-      this.initConfig((this.total - this.discountAmount) / 25000);
+  constructor(
+    private cartService: CartService,
+    private authService: AuthService,
+    private afs: AngularFirestore,
+    private renderer: Renderer2,
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar
+  ) {}
 
-      this.authService.afAuth.authState.subscribe((user: any) => {
-        this.isLoggedIn = !!user;
-        if (this.isLoggedIn) {
-          this.authService.getUserInfo(user.uid).subscribe((userInfo) => {
-            this.userInfo = userInfo;
-            // Điền thông tin người dùng vào form khi đã đăng nhập
-            if (this.userInfo) {
-              this.guestName = this.userInfo.displayName || '';
-              this.guestEmail = this.userInfo.email || '';
-              this.guestAddress = this.userInfo.address || '';
-              this.guestPhone = this.userInfo.phone || '';
-            }
-          });
-        }
-      });
-    }
+  ngOnInit(): void {
+    this.cartItems = this.cartService.getCartItems();
+    this.calculateTotal();
+    this.initConfig((this.total - this.discountAmount) / 25000);
 
+    this.authService.afAuth.authState.subscribe((user: any) => {
+      this.isLoggedIn = !!user;
+      if (this.isLoggedIn) {
+        this.authService.getUserInfo(user.uid).subscribe((userInfo) => {
+          this.userInfo = userInfo;
+          // Điền thông tin người dùng vào form khi đã đăng nhập
+          if (this.userInfo) {
+            this.guestName = this.userInfo.displayName || '';
+            this.guestEmail = this.userInfo.email || '';
+            this.guestAddress = this.userInfo.address || '';
+            this.guestPhone = this.userInfo.phone || '';
+          }
+        });
+      }
+    });
+  }
     async applyPromotion() {
-      // Lấy mã khuyến mãi từ input
-      const promotionCode = this.promotion;
-      console.log(promotionCode);
-      // Sử dụng AngularFirestore để truy vấn dữ liệu
-      const promotionRef = this.afs.collection('promotion').doc(promotionCode);
-      console.log(promotionRef);
+    // Lấy mã khuyến mãi từ input
+    const promotionCode = this.promotion;
+    console.log(promotionCode);
+    // Sử dụng AngularFirestore để truy vấn dữ liệu
+    const promotionRef = this.afs.collection('promotion').doc(promotionCode);
+    console.log(promotionRef);
 
-      // Lắng nghe sự thay đổi của tài liệu với mã khuyến mãi tương ứng
-      promotionRef.valueChanges().subscribe((promotion: any) => {
-        console.log(promotion);
+    // Lắng nghe sự thay đổi của tài liệu với mã khuyến mãi tương ứng
+    promotionRef.valueChanges().subscribe((promotion: any) => {
+      console.log(promotion);
 
-        if (promotion) {
-          // Tính giảm giá dựa trên phần trăm giảm giá từ mã khuyến mãi
-          const discountPercentage = promotion.discountPercentage;
-          this.discountAmount = (this.total * discountPercentage) / 100;
-        } else {
-          // Nếu mã khuyến mãi không tồn tại, đặt giá trị giảm giá về 0
-          this.discountAmount = 0;
-        }
-      });
-    }
+      if (promotion) {
+        // Tính giảm giá dựa trên phần trăm giảm giá từ mã khuyến mãi
+        const discountPercentage = promotion.discountPercentage;
+        this.discountAmount = (this.total * discountPercentage) / 100;
+      } else {
+        // Nếu mã khuyến mãi không tồn tại, đặt giá trị giảm giá về 0
+        this.discountAmount = 0;
+      }
+    });
+  }
     private calculateTotal() {
       this.total = this.cartItems.reduce(
         (sum, item) => sum + item.price * item.quantity,

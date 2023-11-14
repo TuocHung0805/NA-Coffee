@@ -139,55 +139,37 @@ export class CartComponent {
           }
         }
         else{
-          const productBranch = item.branch;
           const recipeQuery = this.afs.collection('recipe', (ref) =>
             ref.where('nameLowercase', '==', item.name.toLowerCase())
           );
 
           const recipeQuerySnapshot = await recipeQuery.get().toPromise();
-
           // Nếu có một công thức có cùng tên tồn tại, xử lý nguyên liệu của nó
           if (recipeQuerySnapshot!.size !== 0) {
-            // Tạo một biến trung gian để lưu trữ số lượng mới của sản phẩm cà phê
-            let newCoffeeQuantity = Number(item.quantity);
             for (const recipeDoc of recipeQuerySnapshot!.docs) {
               const recipeData = recipeDoc.data() as recipe;
-            for (const ingredientInfo of recipeData.ingredients) {
-              const ingredientQuery = this.afs.collection('ingredient', (ref) =>
-                ref.where('nameLowercase', '==', ingredientInfo.value.toLowerCase())
-              );
-        
-              const ingredientQuerySnapshot = await ingredientQuery.get().toPromise();
-        
-              if (ingredientQuerySnapshot!.size !== 0) {
-                const ingredientDoc = ingredientQuerySnapshot!.docs[0];
-                const firestoreIngredient = ingredientDoc.data() as ingredient;
-                const newQuantity = Number(firestoreIngredient.quantity) - (Number(ingredientInfo.quantity) * Number(item.quantity));
-  
-                ingredientDoc.ref.update({ quantity: newQuantity });
-        
-                // Tính toán số lượng sản phẩm cà phê mới dựa trên số lượng nguyên liệu đã trừ
-                newCoffeeQuantity = Math.min(newCoffeeQuantity, Math.floor(Number(firestoreIngredient.quantity) / Number(ingredientInfo.quantity)));
-              }
-            }
-        
-            // Cập nhật số lượng sản phẩm cà phê trong giỏ hàng
-            const productQuery = this.afs.collection('Items', (ref) =>
-              ref.where('id', '==', item.id)
-            );
-            const querySnapshot = await productQuery.get().toPromise();
-            if (querySnapshot!.size != 0) {
-              const productDoc = querySnapshot!.docs[0];
-              const firestoreQuantity = productDoc.data() as { quantity: number } | undefined;
-              if (firestoreQuantity) {
-                const newQuantity = firestoreQuantity.quantity - newCoffeeQuantity;
-                productDoc.ref.update({ quantity: newQuantity });
+
+              // Lặp qua các nguyên liệu trong công thức
+              for (const ingredientInfo of recipeData.ingredients) {
+                const ingredientQuery = this.afs.collection('ingredient', (ref) =>
+                  ref.where('nameLowercase', '==', ingredientInfo.value.toLowerCase())
+                );
+                const ingredientQuerySnapshot = await ingredientQuery.get().toPromise();
+
+                if (ingredientQuerySnapshot!.size !== 0) {
+                  const ingredientDoc = ingredientQuerySnapshot!.docs[0];
+                  const firestoreIngredient = ingredientDoc.data() as ingredient;
+
+                  // Cập nhật số lượng nguyên liệu bằng cách trừ đi từ số lượng của mục trong giỏ hàng
+                  const newQuantity = Number(firestoreIngredient.quantity) - (Number(ingredientInfo.quantity) * Number(item.quantity));
+
+                  ingredientDoc.ref.update({ quantity: newQuantity });
+                }
               }
             }
           }
         }
       }
-    }
 
       this.showSuccessToast('Đặt hàng thành công!');
       this.saveOrderToFirestore();
@@ -255,7 +237,8 @@ export class CartComponent {
 
             this.authService.updateUserInfo(this.userInfo.uid, this.userInfo)
               .then(() => {
-                this.checkout();
+                this.showSuccessToast('Đặt hàng thành công!');
+                this.saveOrderToFirestore();
               })
               .catch((error) => {
                 window.alert('Lưu thông tin người dùng không thành công!');
@@ -264,7 +247,8 @@ export class CartComponent {
           else {
             this.authService.updateUserInfo(this.userInfo.uid, this.userInfo)
               .then(() => {
-                this.checkout();
+                this.showSuccessToast('Đặt hàng thành công!');
+                this.saveOrderToFirestore();
               })
               .catch((error) => {
                 window.alert('Lưu thông tin người dùng không thành công!');
