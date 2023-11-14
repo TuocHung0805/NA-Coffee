@@ -32,11 +32,13 @@ export class ModItemComponent implements OnInit {
   ItemType: string = '';
   ItemBranch: string ='';
   ItemDescription: string ='';
+  agencies: any[] = [];
 
   constructor(private router: Router, private auth: AuthService, private data: DataService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.getAllItem();
+    this.getAllItemAgency();
   }
 
   getAllItem() {
@@ -50,6 +52,22 @@ export class ModItemComponent implements OnInit {
       },
       (err) => {
         alert('Lỗi khi xử lý dữ liệu sản phẩm');
+      }
+    );
+  }
+
+  getAllItemAgency() {
+    this.data.getAllItemAgency().subscribe(
+      (res) => {
+        this.agencies = res.map((e: any) => {
+          const data = e.payload.doc.data();
+          data.id = e.payload.doc.id;
+
+          return data;
+        });
+      },
+      (err) => {
+        alert('Lỗi khi xử lý dữ liệu nguyên liệu');
       }
     );
   }
