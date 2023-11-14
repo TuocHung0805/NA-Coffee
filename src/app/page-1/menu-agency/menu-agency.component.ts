@@ -1,6 +1,6 @@
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable,from } from 'rxjs';
 import { Item } from 'src/app/service/item';
 import { map } from 'rxjs';
 import { Router } from '@angular/router';
@@ -20,13 +20,20 @@ export class MenuAgencyComponent implements OnInit {
   constructor(private afs: AngularFirestore, private router: Router, private cartService: CartService) {
     this.itemsCollection = this.afs.collection<Item>('Items');
     this.items = this.itemsCollection.valueChanges()
+    this.filterQ1Items();
    }
 
   ngOnInit(): void {
     this.sortByName();
 
   }
+  filterQ1Items() {
+    const promise = this.itemsCollection.ref.where('branch', '==', 'Q1').get();
 
+    this.items = from(promise).pipe(
+      map(querySnapshot => querySnapshot.docs.map(doc => doc.data() as Item))
+    );
+  }
 
   addToCart(product: Item) {
     // Gọi hàm addToCart từ CartService để thêm sản phẩm vào giỏ hàng

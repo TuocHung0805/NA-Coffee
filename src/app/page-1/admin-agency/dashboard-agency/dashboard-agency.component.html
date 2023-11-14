@@ -39,14 +39,14 @@
                 <th>Tổng tiền</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody
+              *ngFor="
+                let order of orders
+                  | paginate : { itemsPerPage: 6, currentPage: p }
+              "
+            >
               <!-- Sử dụng *ngFor để lặp qua danh sách đơn hàng và hiển thị thông tin -->
-              <tr
-                *ngFor="
-                  let order of orders
-                    | paginate : { itemsPerPage: 6, currentPage: p }
-                "
-              >
+              <tr *ngIf="order.branch != 'Q1'">
                 <td>
                   <p>{{ order.buyer.email }}</p>
                 </td>

@@ -51,12 +51,23 @@ SignIn(email: string, password: string) {
       // Nếu đăng nhập thành công, lưu thông tin người dùng vào Firestore và điều hướng đến trang dashboard
 
       this.afAuth.authState.subscribe(async (user) => {
-        if (user && (await this.isAdmin())) {
-          this.router.navigate(['admin']);
+        if (user) {
+          if (await this.isAdmin()) {
+            // Nếu là admin chung, chuyển hướng đến 'admin'
+            this.router.navigate(['admin']);
+          } else if (await this.isAdminBranch()) {
+            // Nếu là admin chi nhánh, chuyển hướng đến 'admin-agency'
+            this.router.navigate(['admin-agency']);
+          } else {
+            // Nếu không phải admin chung hoặc admin chi nhánh, chuyển hướng đến 'dashboard'
+            this.router.navigate(['dashboard']);
+          }
         } else {
+          // Nếu không có người dùng đăng nhập, chuyển hướng đến 'dashboard'
           this.router.navigate(['dashboard']);
         }
       });
+
     })
     .catch((error) => {
       // Nếu có lỗi, hiển thị thông báo lỗi
@@ -139,6 +150,16 @@ ForgotPassword(passwordResetEmail: string) {
       const userSnapshot = await userRef.get().toPromise();
       const userData = userSnapshot?.data() as user;
       return userData!.role === 'admin';
+    }
+    return false;
+  }
+  async isAdminBranch(): Promise<boolean> {
+    const user = await this.afAuth.currentUser;
+    if (user) {
+      const userRef = this.afs.doc(`users/${user.uid}`);
+      const userSnapshot = await userRef.get().toPromise();
+      const userData = userSnapshot?.data() as user;
+      return userData!.role === 'admin-agency';
     }
     return false;
   }

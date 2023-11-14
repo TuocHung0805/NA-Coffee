@@ -21,12 +21,14 @@ export class BlogAdminComponent implements OnInit {
     title:'',
     content:'',
     uploadDate:'',
+    branch:'',
 };
 id: string = '';
   ItemImage: string ='';
   ItemTitle: string ='';
   ItemContent: string ='';
   ItemUploadDate: string ='';
+  ItemBranch:string='';
   constructor(private router: Router, private auth: AuthService, private data: DataService, private snackBar: MatSnackBar) {}
   ngOnInit(): void {
     this.getAllItem();
@@ -58,6 +60,7 @@ id: string = '';
     this. ItemTitle = '';
     this. ItemContent = '';
     this. ItemUploadDate = '';
+    this.ItemBranch='';
   }
 
 
@@ -67,6 +70,7 @@ id: string = '';
       this. ItemUploadDate ==='' ||
       this. ItemTitle === '' ||
       this. ItemContent === '' ||
+      this.ItemBranch ===''||
 
 
       this.ItemImage ===  '' // Check if the image field is empty
@@ -77,7 +81,7 @@ id: string = '';
 
     this.ItemObj.title = this.ItemTitle;
     this.ItemObj.content = this.ItemContent;
-
+this.ItemObj.branch=this.ItemBranch;
     this.ItemObj.image = this.ItemImage;
   this.ItemObj.uploadDate= this. ItemUploadDate;
 
@@ -112,6 +116,7 @@ id: string = '';
       this.ItemImage=== '' ||
       this. ItemTitle === '' ||
       this. ItemContent === '' ||
+      this.ItemBranch ===''||
 
 
       this. ItemUploadDate ==='' // Check if the image field is empty
@@ -130,6 +135,7 @@ id: string = '';
     // Cập nhật ItemObj với dữ liệu hiện tại từ form
     this.ItemObj.title = this.ItemTitle;
     this.ItemObj.content = this.ItemContent;
+    this.ItemObj.branch = this.ItemBranch;
 
     this.ItemObj.image = this.ItemImage;
   this.ItemObj.uploadDate= this. ItemUploadDate;
@@ -156,6 +162,7 @@ id: string = '';
     this.ItemContent = item.content;
     this.ItemUploadDate= item.uploadDate;
     this.ItemImage = item.image;
+    this.ItemBranch=item.branch;
 
   }
 

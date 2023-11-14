@@ -27,7 +27,7 @@
         </div> -->
           <div class="col-lg-4 col-md-6" *ngFor="let item of items | async">
             <div class="d-items">
-              <div class="card-image-1 mod-b">
+              <div class="card-image-1 mod-b" *ngIf="item.branch != 'Q1'">
                 <a href="blog-single" class="d-text">
                   <div class="d-inner">
                     <span class="atr-date">{{ item.uploadDate }}</span>

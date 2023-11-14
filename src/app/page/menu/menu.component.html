@@ -48,7 +48,10 @@
 
           <div class="row justify-content-center mb-3">
             <div class="col-md-12" *ngFor="let item of items | async">
-              <div class="card shadow-0 border rounded-3">
+              <div
+                class="card shadow-0 border rounded-3"
+                *ngIf="item.branch != 'Q1'"
+              >
                 <div class="card-body">
                   <div class="row g-0">
                     <div
@@ -58,7 +61,7 @@
                         class="bg-image hover-zoom ripple rounded ripple-surface me-md-3 mb-3 mb-md-0"
                       >
                         <img
-                          src="{{item.image}}"
+                          src="{{ item.image }}"
                           routerLink="/detail"
                           class="w-100"
                           style="cursor: pointer"
@@ -70,15 +73,20 @@
                               style="
                                 background-color: rgba(253, 253, 253, 0.15);
                               "
-                            >
-                          </div>
+                            ></div>
                           </div>
                         </a>
                       </div>
                     </div>
-                    <div class="col-xl-6 col-md-5 col-sm-7" (click)="goToItemDetail(item)">
-                      <h5 (click)="goToItemDetail(item)" style="cursor: pointer">
-                        {{item.name}}
+                    <div
+                      class="col-xl-6 col-md-5 col-sm-7"
+                      (click)="goToItemDetail(item)"
+                    >
+                      <h5
+                        (click)="goToItemDetail(item)"
+                        style="cursor: pointer"
+                      >
+                        {{ item.name }}
                       </h5>
                       <div class="d-flex flex-row">
                         <div class="text-warning mb-1 me-2">
@@ -93,17 +101,25 @@
                       </div>
 
                       <p class="text mb-4 mb-md-0">
-                          {{item.description}}
+                        {{ item.description }}
                       </p>
                     </div>
                     <div class="col-xl-3 col-md-3 col-sm-5">
                       <div class="d-flex flex-row align-items-center mb-1">
-                        <h4 class="mb-1 me-1">{{item.price}}</h4>
-                        <span class="text-danger" style="text-decoration: line-through;"><s>{{item.price}}</s></span>
+                        <h4 class="mb-1 me-1">{{ item.price }}</h4>
+                        <span
+                          class="text-danger"
+                          style="text-decoration: line-through"
+                          ><s>{{ item.price }}</s></span
+                        >
                       </div>
 
                       <div class="mt-4">
-                        <button class="btn btn-info shadow-0" type="button" (click)="addToCart(item)">
+                        <button
+                          class="btn btn-info shadow-0"
+                          type="button"
+                          (click)="addToCart(item)"
+                        >
                           Buy this
                         </button>
                         <a
@@ -123,7 +139,7 @@
           </div>
         </div>
       </div>
-      </div>
+    </div>
   </section>
   <hr />
   <app-footer></app-footer>

@@ -1,8 +1,9 @@
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of,from } from 'rxjs';
 import { Router } from '@angular/router';
 import { blog } from 'src/app/service/blog';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-blog-agency',
@@ -20,10 +21,17 @@ export class BlogAgencyComponent implements OnInit {
   constructor(private afs: AngularFirestore, private router: Router, ) {
     this.itemsCollection = this.afs.collection<blog>('Blog');
     this.items = this.itemsCollection.valueChanges()
+    this.filterQ1Blog();
    }
 
   ngOnInit(): void {
 
   }
+  filterQ1Blog() {
+    const promise = this.itemsCollection.ref.where('branch', '==', 'Q1').get();
 
+    this.items = from(promise).pipe(
+      map(querySnapshot => querySnapshot.docs.map(doc => doc.data() as blog))
+    );
+  }
 }

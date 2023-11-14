@@ -43,17 +43,22 @@ export class DashboardAgencyComponent implements OnInit{
       const today = new Date();
       this.newOrdersCount = this.orders.filter((order) => {
         const orderDate = order.orderTime.toDate();
+        const branchValue = order.payload.doc.data()?.branch;
         return orderDate.getDate() === today.getDate() &&
                orderDate.getMonth() === today.getMonth() &&
-               orderDate.getFullYear() === today.getFullYear();
+               orderDate.getFullYear() === today.getFullYear() &&
+               branchValue === 'Q1';
+
       }).length;
 
       this.totalSales = this.orders
         .filter((order) => {
           const orderDate = order.orderTime.toDate();
+          const branchValue = order.payload.doc.data()?.branch;
           return orderDate.getDate() === today.getDate() &&
                  orderDate.getMonth() === today.getMonth() &&
-                 orderDate.getFullYear() === today.getFullYear();
+                 orderDate.getFullYear() === today.getFullYear() &&
+                 branchValue === 'Q1';
         })
         .reduce((acc, order) => acc + order.total, 0);
     });
