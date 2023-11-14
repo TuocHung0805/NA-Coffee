@@ -17,14 +17,86 @@
     >
       <div class="navbar-nav ml-auto p-4">
         <a href="#" class="nav-item nav-link">Company</a>
-        <a routerLink="/store" class="nav-item nav-link">Home</a>
-        <a routerLink="/menu-agency" class="nav-item nav-link">Menu</a>
-        <a routerLink="/voucher-agency" class="nav-item nav-link">Voucher</a>
-        <a routerLink="/blog-agency" class="nav-item nav-link">Blog</a>
+        <a routerLink="/store" class="nav-item nav-link" *ngIf="!isAdminBranch">
+          Home</a
+        >
+        <a
+          routerLink="/menu-agency"
+          class="nav-item nav-link"
+          *ngIf="!isAdminBranch"
+          >Menu</a
+        >
+        <a
+          routerLink="/voucher-agency"
+          class="nav-item nav-link"
+          *ngIf="!isAdminBranch"
+          >Voucher</a
+        >
+        <a
+          routerLink="/blog-agency"
+          class="nav-item nav-link"
+          *ngIf="!isAdminBranch"
+          >Blog</a
+        >
 
-        <a routerLink="/cart-agency" class="nav-item nav-link"
-          ><i class="fas fa-shopping-cart"></i>
-        </a>
+        <div *ngIf="user$ | async as user" class="d-flex align-items-center ab">
+          <div class="dropdown" (click)="toggleDropdown()">
+            <button
+              id="dropdownButton"
+              class="btn btn-link dropdown-toggle"
+              type="button"
+            >
+              <span class="user-name pr-2">{{ displayName }}</span>
+            </button>
+            <ul
+              id="dropdownMenu"
+              class="dropdown-menu"
+              [ngClass]="{ show: isDropdownOpen }"
+            >
+              <li *ngIf="!isAdminBranch">
+                <a class="dropdown-item" routerLink="/dashboard"
+                  >Trang cá nhân</a
+                >
+              </li>
+              <li *ngIf="isAdminBranch">
+                <a class="dropdown-item" routerLink="/admin-agency"
+                  >Trang Admin-agency</a
+                >
+              </li>
+              <li>
+                <a (click)="logout()" class="dropdown-item">Logout</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Conditionally display a bell icon for admins -->
+          <div
+            *ngIf="isAdminBranch"
+            class="admin-icon ml-3"
+            style="margin-left: 30px"
+          >
+            <a class="btn btn-link" style="margin-right: -90px">
+              <i class="fas fa-bell" routerLink="/notification"></i>
+              <div class="badge badge-danger" style="color: #000">
+                {{ notificationCount }}
+              </div>
+            </a>
+          </div>
+        </div>
+        <ul class="header__right__widget">
+          <li *ngIf="isAdminBranch">
+            <a routerLink="/notification"
+              ><span class="fa-solid fa-bell"></span>
+              <div class="tip">{{ notificationCount }}</div>
+            </a>
+          </li>
+          <li *ngIf="!isAdminBranch">
+            <a routerLink="/cart-agency"
+              ><span class="fas fa-shopping-cart"></span>
+              <div class="tip">{{ cartItemCount }}</div>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>

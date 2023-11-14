@@ -34,8 +34,8 @@ export class RecipeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllItem();
-    this.getAllItemAgency()
-    this.getAllItemIngredient() 
+    // this.getAllItemAgency()
+    // this.getAllItemIngredient()
   }
   getAllItem() {
     this.data.getAllItemRecipe().subscribe(
@@ -52,39 +52,6 @@ export class RecipeComponent implements OnInit {
       }
     );
   }
-
-  getAllItemIngredient() {
-    this.data.getAllItemIngredient().subscribe(
-      (res) => {
-        this.ItemList = res.map((e: any) => {
-          const data = e.payload.doc.data();
-          data.id = e.payload.doc.id;
-          data.importDate = data.importDate.toDate();
-
-          return data;
-        });
-      },
-      (err) => {
-        alert('Lỗi khi xử lý dữ liệu nguyên liệu');
-      }
-    );
-  }
-
-  getAllItemAgency() {
-    this.data.getAllItemAgency().subscribe(
-      (res) => {
-        this.agencies = res.map((e: any) => {
-          const data = e.payload.doc.data();
-          data.id = e.payload.doc.id;
-          return data;
-        });
-      },
-      (err) => {
-        alert('Lỗi khi xử lý dữ liệu nguyên liệu');
-      }
-    );
-  }
-
   resetForm() {
     this.id  = '';
     this.ItemName  = '';
@@ -105,17 +72,12 @@ export class RecipeComponent implements OnInit {
         return;
       }
     }
+
     this.ItemObj.name = this.ItemName;
     this.ItemObj.nameLowercase = this.ItemName.toLowerCase();
     this.ItemObj.ingredients = this.ItemIngredient;
     this.ItemObj.instructions = this.ItemInstructions;
-    this.ItemObj.itemQuantity = this.agencies.map(agency => ({ agency: agency.name, quantity: 0 }));
-    for (const ingredient of this.ItemIngredient) {
-      const agencyIndex = this.ingredients.findIndex(agency => agency.nameLowercase == ingredient.value.toLocaleLowerCase());
-      if (agencyIndex !== -1) {
-        this.ItemObj.itemQuantity[agencyIndex].quantity += ingredient.quantity;
-      }
-    }
+
     // Đặt các thuộc tính khác ở đây
 
     this.data.addItemRecipe(this.ItemObj);
@@ -182,7 +144,6 @@ export class RecipeComponent implements OnInit {
     this.ItemObj.nameLowercase = this.ItemName.toLowerCase();
     this.ItemObj.ingredients = this.ItemIngredient;
     this.ItemObj.instructions = this.ItemInstructions;
-    this.ItemObj.itemQuantity = this.agencies.map(agency => ({ agency: agency.name, quantity: 0 }));
 
     // Gọi phương thức updateItem() từ DataService
     this.data
@@ -198,7 +159,7 @@ export class RecipeComponent implements OnInit {
   }
 
   addInput() {
-    this.inputID = this.inputItems.length +1  
+    this.inputID = this.inputItems.length +1
     const newId = this.inputID + 1; // Tạo một khóa duy nhất cho dòng mới
     this.inputItems.push(newId);
     this.ItemIngredient.push({ id: newId, value: '', quantity: 0});

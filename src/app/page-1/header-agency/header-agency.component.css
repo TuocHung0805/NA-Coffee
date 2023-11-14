@@ -10058,3 +10058,17 @@ h6,
   background-repeat: no-repeat;
   background-size: cover;
 }
+.tip {
+  position: relative;
+  top: -39px;
+  right: -20px;
+}
+.ab {
+  position: relative;
+  top: -11px;
+  right: -10px;
+}
+.header__right__widget {
+  position: relative;
+  top: 10px;
+}

@@ -2,7 +2,7 @@
   <div class="col-md-2">
     <app-nav-sidebar></app-nav-sidebar>
   </div>
-  <div class="col-md-10" style="margin-top: 75px;">
+  <div class="col-md-10" style="margin-top: 75px">
     <div class="container" style="margin-top: 20px">
       <form (ngSubmit)="selectedItem ? updateItem() : addItem()">
         <div class="row mb-3">
@@ -19,29 +19,40 @@
             />
           </div>
         </div>
-    
+
         <div class="row mb-3">
-          <div *ngFor="let item of ItemIngredient; let i = index" style="display: flex ; margin-top: 20px;">
+          <div *ngFor="let item of ItemIngredient; let i = index">
             <label for="ItemIngredient" class="col-sm-2 col-form-label"
               >Nguyên Liệu {{ i + 1 }}</label
             >
             <input
-              class="form-control"
+              class="ef"
               [(ngModel)]="item.value"
               placeholder="Dòng {{ i + 1 }}"
-              name="ItemIngredient-{{ item.id }}"
+              name="ItemIngredient-value-{{ item.id }}"
               [ngModelOptions]="{ updateOn: 'blur' }"
-              style="width: 500px;"
             />
-            <button class="btn btn-primary" (click)="removeInput(i)" type="button" style="margin-left: 20px;">Xóa</button>
+            <input
+              class="ef"
+              [(ngModel)]="item.quantity"
+              placeholder="Dòng {{ i + 1 }}"
+              name="ItemIngredient-quantity-{{ item.id }}"
+              [ngModelOptions]="{ updateOn: 'blur' }"
+            />
+            <label for="">ml/g</label>
+            <button class="ab" (click)="removeInput(i)" type="button">
+              Xóa
+            </button>
           </div>
-    
-          <button class="btn btn-primary" (click)="addInput()" type="button" style="margin-top: 20px; width: 300px; justify-content: center;">
+
+          <button class="ac" (click)="addInput()" type="button">
             Thêm dòng input mới
           </button>
         </div>
         <div class="row mb-3">
-          <label for="ItemPrice" class="col-sm-2 col-form-label">Cách làm</label>
+          <label for="ItemPrice" class="col-sm-2 col-form-label"
+            >Cách làm</label
+          >
           <div class="col-sm-10">
             <textarea
               type="text"
@@ -53,16 +64,18 @@
           </div>
         </div>
         <div class="col-12 d-flex justify-content-end">
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn">
             {{ selectedItem ? "Sửa công thức" : "Thêm công thức" }}
           </button>
         </div>
       </form>
-    
+
       <div>
         <h5 class="text-danger" style="font-size: 20px; margin-top: 10px">
           Danh sách công thức
         </h5>
+        <div class="card p-3 shadow">
+          <div class="card-body">
             <table class="table">
               <thead>
                 <tr style="text-align: center">
@@ -81,7 +94,7 @@
                   <td>
                     <ul class="ingredient-list">
                       <li *ngFor="let ingredient of item.ingredients">
-                        {{ ingredient.value }}
+                        {{ ingredient.value }} {{ ingredient.quantity }} ml/g
                       </li>
                     </ul>
                   </td>
@@ -97,10 +110,9 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-
-

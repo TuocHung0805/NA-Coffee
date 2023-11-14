@@ -71,7 +71,7 @@ const routes: Routes = [
   {path:'mod-blog',component:ModBlogComponent},
   {path:'nav',component:NavComponent},
   {path:'order-agency',component:OrderComponent},
-  {path:'voucher',component:VoucherComponent},
+  {path:'voucher-admin',component:VoucherComponent},
   {path:'voucher-agency',component:VoucherAgencyComponent},
   {path:'blog-agency',component:BlogAgencyComponent},
   {path:'cart-agency',component:CartAgencyComponent},

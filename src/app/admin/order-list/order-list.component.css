@@ -1,6 +1,6 @@
 /* CSS cho các nút sắp xếp */
 .sort-button {
-  background-color: #ff6600; /* Màu cam */
+  background-color: #0d6efd; /* Màu cam */
   color: white;
   border: none;
   padding: 10px 20px;
@@ -21,9 +21,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  position: relative;
+  left: 120px;
 }
 .btn {
-  margin-left: 257px;
+  position: relative;
+  left: 320px;
 }
 
 .order-container {
@@ -60,7 +63,7 @@
 }
 
 .order-item button {
-  background-color: rgb(255, 102, 0);
+  background-color: #0d6efd;
   color: white;
   border: none;
   padding: 10px 20px;
