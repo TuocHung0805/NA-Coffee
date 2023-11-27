@@ -14,12 +14,66 @@ import { blog } from './blog';
 
 export class DataService {
     constructor(private afs: AngularFirestore) { }
+    
+    async addToWishList(itemId: string): Promise<void> {
+        const user = JSON.parse(localStorage.getItem('user')!);
+        
+        if (user) {
+          const userRef = this.afs.collection('users').doc(user.uid);
+    
+          // Lấy thông tin người dùng từ Firestore
+          const userDoc = await userRef.get().toPromise();
+          const userData = userDoc!.data() as user;
+    
+          // Kiểm tra xem sản phẩm đã có trong danh sách yêu thích hay chưa
+          if (userData.wishList && userData.wishList.includes(itemId)) {
+            return; // Nếu đã có, không thêm lại
+          }
+    
+          // Thêm vào danh sách yêu thích
+          if (!userData.wishList) {
+            userData.wishList = [itemId];
+          } else {
+            userData.wishList.push(itemId);
+          }
+    
+          // Cập nhật thông tin người dùng trong Firestore
+          await userRef.update(userData);
+        }
+      }
 
+      async deleteWishList(itemId: string): Promise<void> {
+        const user = JSON.parse(localStorage.getItem('user')!);
+      
+        if (user) {
+          const userRef = this.afs.collection('users').doc(user.uid);
+      
+          // Lấy thông tin người dùng từ Firestore
+          const userDoc = await userRef.get().toPromise();
+          const userData = userDoc!.data() as user;
+      
+          // Kiểm tra xem sản phẩm có trong danh sách yêu thích hay không
+          if (!userData.wishList || !userData.wishList.includes(itemId)) {
+            return;
+          }
+      
+          // Xóa khỏi danh sách yêu thích
+          userData.wishList = userData.wishList.filter(id => id !== itemId);
+      
+          // Cập nhật thông tin người dùng trong Firestore
+          await userRef.update(userData);
+        }
+      }
 
     addItem(item: Item) {
-        item.id = this.afs.createId();
-        return this.afs.collection('/Items').add(item);
-    }
+        const itemId = this.afs.createId(); // Tạo một ID mới
+        item.id = itemId;
+        const itemDoc = this.afs.doc<Item>(`/Items/${itemId}`);
+      
+        // Thêm sản phẩm vào collection
+        return itemDoc.set(item);
+      }
+      
 
     getAllItem() {
         return this.afs.collection('/Items').snapshotChanges();
@@ -32,6 +86,7 @@ export class DataService {
     updateItem(item: Item) {
         return this.afs.doc('/Items/' + item.id).update(item);
     }
+    
 
     /* Danh sÃ¡ch API user */
     getAllItemUser() {
@@ -87,8 +142,12 @@ export class DataService {
     }
 
     addItemIngredient(item: ingredient) {
-        item.id = this.afs.createId();
-        return this.afs.collection('/ingredient').add(item);
+        const itemId = this.afs.createId(); // Tạo một ID mới
+        item.id = itemId;
+        const itemDoc = this.afs.doc<ingredient>(`/ingredient/${itemId}`);
+      
+        // Thêm sản phẩm vào collection
+        return itemDoc.set(item);
     }
 
     deleteItemIngredient(item: ingredient) {
@@ -104,8 +163,12 @@ export class DataService {
     }
 
     addItemAgency(item: agency) {
-        item.id = this.afs.createId();
-        return this.afs.collection('/Agency').add(item);
+        const itemId = this.afs.createId(); // Tạo một ID mới
+        item.id = itemId;
+        const itemDoc = this.afs.doc<agency>(`/Agency/${itemId}`);
+      
+        // Thêm sản phẩm vào collection
+        return itemDoc.set(item);
     }
 
     deleteItemAgency(item: agency) {
@@ -131,4 +194,36 @@ export class DataService {
   updateItemBlog(item: blog) {
       return this.afs.doc('/Blog/' + item.id).update(item);
   }
+
+  requestAddItem(item: Item){
+    item.id = this.afs.createId();
+    return this.afs.collection('/Requirement').add(item);
+  }
+
+  requestUpdateItem(item: Item){
+    return this.afs.doc('/Requirement' + item.id).update(item);
+  }
+
+  getAllRequest() {
+    return this.afs.collection('/Requirement').snapshotChanges();
+}
+    deleteRequestItem(item: Item){
+        return this.afs.doc('/Requirement/' + item.id).delete()
+    }
+
+    requestAddIngredient(item: ingredient){
+    item.id = this.afs.createId();
+    return this.afs.collection('/Requirement').add(item);
+  }
+
+  requestUpdateIngredient(item: ingredient){
+    return this.afs.doc('/Requirement' + item.id).update(item);
+  }
+
+  deleteRequestIngredient(item: ingredient){
+    return this.afs.doc('/Requirement/' + item.id).delete()
+}
+
+
+
 }

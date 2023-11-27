@@ -16,22 +16,27 @@ export class IngredientAgencyComponent implements OnInit {
     id: '',
     name: '',
     nameLowercase: '',
-    quantity: '',
+    quantity: 0,
     importDate: '',
     origin: '',
     exp: '',
+    ml: '',
+    branch:'Q1'
   };
   id: string = '';
   ItemName: string = '';
-  ItemQuantity: string = '';
+  ItemQuantity: number = 0;
   ItemImportDate: string ='';
   ItemOrigin: string = '';
   ItemExp: string = '';
+  ItemMl: string ='';
+  RequestList: any[] = [];
 
   constructor(private router: Router, private auth: AuthService, private data: DataService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.getAllItem();
+    this.getAllRequest();
   }
 
   getAllItem() {
@@ -50,42 +55,32 @@ export class IngredientAgencyComponent implements OnInit {
     );
   }
 
+  getAllRequest() {
+    this.data.getAllRequest().subscribe(
+      (res) => {
+        this.RequestList = res.map((e: any) => {
+          const data = e.payload.doc.data();
+          data.id = e.payload.doc.id;
+  
+  
+          return data;
+        }).filter((item: any) => item.RType === 'ingredient'); // Filter based on RType
+      },
+      (err) => {
+        alert('Lỗi khi xử lý dữ liệu nguyên liệu');
+      }
+    );
+  }
+
   resetForm() {
     this.id = '';
     this.ItemName = '';
-    this.ItemQuantity = '';
+    this.ItemQuantity = 0;
     this.ItemOrigin = '';
     this.ItemExp  = '';
+    this.ItemMl = '';
   }
 
-  addItem() {
-    if (
-
-      this.ItemName === '' ||
-      this.ItemQuantity === '' ||
-      this.ItemOrigin === '' ||
-      this.ItemExp === ''
-
-    ) {
-      alert('Điền đầy đủ thông tin và giá trị hợp lệ');
-      return;
-    }
-
-    this.ItemObj.name = this.ItemName;
-    this.ItemObj.quantity = this.ItemQuantity;
-
-    this.ItemObj.origin = this.ItemOrigin;
-    this.ItemObj.exp = this.ItemExp;
-    this.ItemObj.importDate = this.ItemImportDate;
-
-    // Đặt các thuộc tính khác ở đây
-
-
-    this.data.addItemIngredient(this.ItemObj);
-    this.showSuccessToast('Thêm nguyên liệu thành công');
-    this.resetForm();
-    this.selectedItem = null;
-  }
 
   private showSuccessToast(message: string): void {
     this.snackBar.open(message, 'Đóng', {
@@ -114,30 +109,34 @@ export class IngredientAgencyComponent implements OnInit {
     // Đặt các thuộc tính khác ở đây
   }
 
-  deleteItem(item: ingredient) {
-
-    if (window.confirm('Bấm xác nhận để xoá nguyên liệu: ' + item.id + '?')) {
-      this.data
-        .deleteItemIngredient(item)
-        .then(() => {
-          this.showSuccessToast('Xoá nguyên liệu thành công');
-
-          this.resetForm();
-          this.selectedItem = null;
-        })
-        .catch((error) => {
-          alert('Lỗi khi xoá nguyên liệu: ' + error);
-        });
-    }
-  }
-
-  updateItem() {
+  RequestAddItem(){
     if (
 
       this.ItemName === '' ||
-      this.ItemQuantity === '' ||
-      this.ItemOrigin === '' ||
-      this.ItemExp === ''
+      this.ItemQuantity === 0
+    ) {
+      alert('Điền đầy đủ thông tin và giá trị hợp lệ');
+      return;
+    }
+
+    this.ItemObj.name = this.ItemName;
+    this.ItemObj.quantity = this.ItemQuantity;
+    this.ItemObj.nameLowercase = this.ItemName.toLowerCase();
+    this.ItemObj.importDate = this.ItemImportDate;
+    this.ItemObj.branch = 'Q1'
+    this.ItemObj.RType = 'ingredient'
+
+    this.data.requestAddIngredient(this.ItemObj);
+    this.showSuccessToast('Yêu cầu nguyên liệu thành công');
+    this.resetForm();
+    this.selectedItem = null;
+  }
+
+  RequestModItem(){
+    if (
+
+      this.ItemName === '' ||
+      this.ItemQuantity === 0
     ) {
       alert('Điền đầy đủ thông tin và giá trị hợp lệ');
       return;
@@ -153,21 +152,35 @@ export class IngredientAgencyComponent implements OnInit {
     // Cập nhật ItemObj với dữ liệu hiện tại từ form
     this.ItemObj.name = this.ItemName;
     this.ItemObj.quantity = this.ItemQuantity;
-
+    this.ItemObj.nameLowercase = this.ItemName.toLowerCase();
     this.ItemObj.importDate = this.ItemImportDate;
+    this.ItemObj.branch = 'Q1'
 
     // Gọi phương thức updateItem() từ DataService
     this.data
-      .updateItemIngredient(this.ItemObj)
+      .requestUpdateIngredient(this.ItemObj)
       .then(() => {
-
-        this.showSuccessToast('Cập nhật nguyên liệu thành công');
+        this.showSuccessToast('Cập nhật yêu cầu nguyên liệu thành công');
         this.resetForm();
       })
       .catch((error) => {
-        alert('Lỗi khi cập nhật nguyên liệu: ' + error);
-
+        alert('Lỗi khi cập nhật sản phẩm: ' + error);
       });
     this.selectedItem = null;
+  }
+
+  deleteRequest(item: ingredient) {
+    if (window.confirm('Bấm xác nhận để xoá công thức: ' + item.name + '?')) {
+      this.data
+        .deleteRequestIngredient(item)
+        .then(() => {
+          this.showSuccessToast('Xoá công thức thành công')
+          this.resetForm();
+          this.selectedItem = null;
+        })
+        .catch((error) => {
+          alert('Lỗi khi xoá công thức: ' + error);
+        });
+    }
   }
 }

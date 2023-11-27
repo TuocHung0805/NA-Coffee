@@ -8,6 +8,7 @@ export interface Item{
     comments?: Comment[];
     branch: string;
     description: string;
+    RType?: string;
 }
 
 export interface Comment{

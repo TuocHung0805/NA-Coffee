@@ -16,17 +16,21 @@ export class IngredientComponent implements OnInit {
     id: '',
     name: '',
     nameLowercase:'',
-    quantity: '',
+    quantity: 0,
     importDate: '',
     origin: '',
     exp: '',
+    ml: '',
+    branch: '',
   };
   id: string = '';
   ItemName: string = '';
-  ItemQuantity: string = '';
+  ItemQuantity: number = 0;
+  ItemBranch: string = '';
   ItemImportDate: string ='';
   ItemOrigin: string = '';
   ItemExp: string = '';
+  ItemML: string ='';
 
   constructor(private router: Router, private auth: AuthService, private data: DataService, private snackBar: MatSnackBar) {}
 
@@ -53,18 +57,21 @@ export class IngredientComponent implements OnInit {
   resetForm() {
     this.id = '';
     this.ItemName = '';
-    this.ItemQuantity = '';
+    this.ItemQuantity = 0;
     this.ItemOrigin = '';
     this.ItemExp  = '';
+    this.ItemBranch = ''
   }
 
   addItem() {
     if (
 
       this.ItemName === '' ||
-      this.ItemQuantity === '' ||
+      this.ItemQuantity === 0||
       this.ItemOrigin === '' ||
-      this.ItemExp === ''
+      this.ItemExp === '' ||
+      this.ItemBranch === '' ||
+      this.ItemML ===''
 
     ) {
       alert('Điền đầy đủ thông tin và giá trị hợp lệ');
@@ -74,10 +81,11 @@ export class IngredientComponent implements OnInit {
     this.ItemObj.name = this.ItemName;
     this.ItemObj.nameLowercase = this.ItemName.toLowerCase();
     this.ItemObj.quantity = this.ItemQuantity;
-
+    this.ItemObj.branch = this.ItemBranch;
     this.ItemObj.origin = this.ItemOrigin;
     this.ItemObj.exp = this.ItemExp;
     this.ItemObj.importDate = this.ItemImportDate;
+    this.ItemObj.ml = this.ItemML;
 
     // Đặt các thuộc tính khác ở đây
 
@@ -136,9 +144,11 @@ export class IngredientComponent implements OnInit {
     if (
 
       this.ItemName === '' ||
-      this.ItemQuantity === '' ||
+      this.ItemQuantity === 0||
       this.ItemOrigin === '' ||
-      this.ItemExp === ''
+      this.ItemExp === '' ||
+      this.ItemBranch === '' ||
+      this.ItemML ===''
     ) {
       alert('Điền đầy đủ thông tin và giá trị hợp lệ');
       return;
@@ -155,7 +165,8 @@ export class IngredientComponent implements OnInit {
     this.ItemObj.name = this.ItemName;
     this.ItemObj.nameLowercase = this.ItemName.toLowerCase();
     this.ItemObj.quantity = this.ItemQuantity;
-
+    this.ItemObj.branch = this.ItemBranch;
+    this.ItemObj.ml = this.ItemML;
     this.ItemObj.importDate = this.ItemImportDate;
 
     // Gọi phương thức updateItem() từ DataService

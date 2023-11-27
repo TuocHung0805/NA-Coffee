@@ -24,6 +24,7 @@
     "firebase": "^10.5.2",
     "html-to-pdfmake": "^2.5.1",
     "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.7.1",
     "ngx-pagination": "^6.0.3",
     "ngx-paypal": "^11.0.0",
     "pdfmake": "^0.2.8",

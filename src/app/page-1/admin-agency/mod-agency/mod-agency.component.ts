@@ -14,6 +14,7 @@ import { finalize } from 'rxjs/operators';
 })
 export class ModAgencyComponent implements OnInit {
   ItemList: Item[] = [];
+  RequestList: any[] = [];
   ItemObj: Item = {
     id: '',
     image: '',
@@ -27,8 +28,8 @@ export class ModAgencyComponent implements OnInit {
   id: string = '';
   ItemImage: string = '';
   ItemName: string = '';
-  ItemQuantity: string = '';
-  ItemPrice: string = '';
+  ItemQuantity: number = 0;
+  ItemPrice: number = 0;
   ItemType: string = '';
   ItemBranch: string = 'Q1';
   ItemDescription: string = '';
@@ -43,6 +44,7 @@ export class ModAgencyComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllItem();
+    this.getAllRequest();
   }
 
   getAllItem() {
@@ -66,15 +68,30 @@ export class ModAgencyComponent implements OnInit {
     );
   }
 
+  getAllRequest() {
+    this.data.getAllRequest().subscribe(
+      (res) => {
+        this.RequestList = res.map((e: any) => {
+          const data = e.payload.doc.data();
+          data.id = e.payload.doc.id;
+  
+          return data;
+        }).filter((item: any) => item.RType === 'item'); // Filter based on RType
+      },
+      (err) => {
+        alert('Lỗi khi xử lý dữ liệu nguyên liệu');
+      }
+    );
+  }
 
-  resetForm() {
+
+  resetFormAgency() {
     this.id = '';
     this.ItemName = '';
-    this.ItemQuantity = '';
-    this.ItemPrice = '';
+    this.ItemQuantity = 0;
+    this.ItemPrice = 0;
     this.ItemType = '';
     this.ItemImage = '';
-    this.ItemDescription = '';
   }
 
   viewItemDetails(item: any) {
@@ -82,95 +99,102 @@ export class ModAgencyComponent implements OnInit {
     this.router.navigate(['', item.uid]);
   }
 
-  addItem() {
+  RequestAddItem(){
     if (
       this.ItemName === '' ||
-      this.ItemPrice === '' ||
+      this.ItemPrice === 0 ||
       this.ItemType === '' ||
-      (this.ItemType === 'Cà phê hoà tan' && this.ItemQuantity === '') ||
+      this.ItemQuantity === 0||
       this.ItemImage === '' ||
-      this.ItemDescription === '' ||
-      this.ItemBranch === ''
+      (this.ItemBranch === '')
     ) {
-      alert('Điền đẩy đủ thông tin');
+      alert('Điền đầy đủ thông tin');
+      return;
+    }
+  
+    this.ItemObj.name = this.ItemName;
+    this.ItemObj.type = this.ItemType;
+    this.ItemObj.quantity = this.ItemQuantity;
+    this.ItemObj.price = this.ItemPrice;
+    this.ItemObj.image = this.ItemImage;
+    this.ItemObj.RType = 'item';
+  
+
+    this.ItemObj.branch = 'Q1';
+  
+    if (this.ItemType !== 'Cà phê') {
+      if (isNaN(this.ItemObj.quantity)) {
+        alert('Lỗi thêm sản phẩm')
+        return;
+      }
+    }
+  
+    if (isNaN(this.ItemObj.price)) {
+      alert('Lỗi thêm sản phẩm');
+      return;
+    }
+  
+    this.data.requestAddItem(this.ItemObj);
+    this.showSuccessToast('Thêm sản phẩm thành công');
+    this.resetFormAgency();
+    this.selectedItem = null;
+  }
+
+  RequestModItem(){
+    if (
+      this.ItemName === '' ||
+      this.ItemPrice === 0 ||
+      this.ItemType === '' ||
+      this.ItemQuantity === 0||
+      this.ItemImage === '' ||
+      (this.ItemBranch === '')
+    ) {
+      alert('Điền đầy đủ thông tin');
+      return;
+    }
+  
+
+    if (!this.ItemObj.id) {
+      alert('Không tìm thấy ID sản phẩm cần cập nhật');
       return;
     }
 
     this.ItemObj.name = this.ItemName;
     this.ItemObj.type = this.ItemType;
-    this.ItemObj.quantity = parseInt(this.ItemQuantity);
-    this.ItemObj.price = parseFloat(this.ItemPrice);
+    this.ItemObj.quantity = this.ItemQuantity;
+    this.ItemObj.price = this.ItemPrice;
     this.ItemObj.image = this.ItemImage;
-    this.ItemObj.branch = this.ItemBranch;
-    this.ItemObj.description = this.ItemDescription;
+    this.ItemObj.RType = 'item';
+  
 
-    if (isNaN(this.ItemObj.price)) {
-      alert('test');
-      return;
-    }
+    this.ItemObj.branch = 'Q1';
 
-    this.data.addItem(this.ItemObj);
-    this.showSuccessToast('Thêm sản phẩm thành công');
-    this.resetForm();
+    this.data
+      .requestUpdateItem(this.ItemObj)
+      .then(() => {
+        this.showSuccessToast('Cập nhật sản phẩm thành công');
+        this.resetFormAgency();
+      })
+      .catch((error) => {
+        alert('Lỗi khi cập nhật sản phẩm: ' + error);
+      });
+  
     this.selectedItem = null;
   }
 
-  deleteItem(item: Item) {
+  deleteRequest(item: Item) {
     if (window.confirm('Bấm xác nhận để xoá sản phẩm: ' + item.name + '?')) {
       this.data
-        .deleteItem(item)
+        .deleteRequestItem(item)
         .then(() => {
           this.showSuccessToast('Xoá sản phẩm thành công');
-          this.resetForm();
+          this.resetFormAgency();
           this.selectedItem = null;
         })
         .catch((error) => {
           alert('Lỗi khi xoá sản phẩm: ' + error);
         });
     }
-  }
-
-  updateItem() {
-    if (
-      this.ItemName === '' ||
-      this.ItemPrice === '' ||
-      this.ItemType === '' ||
-      (this.ItemType == 'Cà phê hoà tan' && this.ItemQuantity === '') ||
-      this.ItemQuantity === '' ||
-      this.ItemImage === '' ||
-      this.ItemDescription === '' ||
-      this.ItemBranch === ''
-    ) {
-      alert('Điền đầy đủ thông tin');
-      return;
-    }
-
-    // Đảm bảo ItemObj có ID của sản phẩm cần cập nhật
-    if (!this.ItemObj.id) {
-      alert('Không tìm thấy ID sản phẩm cần cập nhật');
-      return;
-    }
-
-    // Cập nhật ItemObj với dữ liệu hiện tại từ form
-    this.ItemObj.name = this.ItemName;
-    this.ItemObj.type = this.ItemType;
-    this.ItemObj.quantity = parseInt(this.ItemQuantity);
-    this.ItemObj.price = parseFloat(this.ItemPrice);
-    this.ItemObj.image = this.ItemImage;
-    this.ItemObj.branch = this.ItemBranch;
-    this.ItemObj.description = this.ItemDescription;
-
-    // Gọi phương thức updateItem() từ DataService
-    this.data
-      .updateItem(this.ItemObj)
-      .then(() => {
-        this.showSuccessToast('Cập nhật sản phẩm thành công');
-        this.resetForm();
-      })
-      .catch((error) => {
-        alert('Lỗi khi cập nhật sản phẩm: ' + error);
-      });
-    this.selectedItem = null;
   }
 
   selectedItem: Item | null = null;
@@ -180,8 +204,8 @@ export class ModAgencyComponent implements OnInit {
     this.ItemObj = { ...item }; // Sao chép thuộc tính của sản phẩm để cập nhật
     this.ItemName = item.name;
     this.ItemType = item.type;
-    this.ItemQuantity = item.quantity.toString();
-    this.ItemPrice = item.price.toString();
+    this.ItemQuantity = item.quantity;
+    this.ItemPrice = item.price;
     this.ItemImage = item.image;
     this.ItemBranch = item.branch;
     this.ItemDescription = item.description;

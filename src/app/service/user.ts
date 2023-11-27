@@ -7,4 +7,5 @@ export interface user{
   agency:string;
   address:string;
   phone:string;
+  wishList?: any[];
 }

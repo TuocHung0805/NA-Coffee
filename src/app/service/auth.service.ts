@@ -62,9 +62,6 @@ SignIn(email: string, password: string) {
             // Nếu không phải admin chung hoặc admin chi nhánh, chuyển hướng đến 'dashboard'
             this.router.navigate(['dashboard']);
           }
-        } else {
-          // Nếu không có người dùng đăng nhập, chuyển hướng đến 'dashboard'
-          this.router.navigate(['dashboard']);
         }
       });
 
@@ -194,7 +191,7 @@ ForgotPassword(passwordResetEmail: string) {
 
 
   // Hàm lấy thông tin người dùng
-  getFieldFromFirestore(uid: string, field: string): Observable<string> {
+  getFieldFromFirestore(uid: string, field: string): Observable<any> {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uid}`);
     return userRef.valueChanges().pipe(
       map((userData: any) => {
@@ -205,6 +202,10 @@ ForgotPassword(passwordResetEmail: string) {
 
   getNameFromFirestore(uid: string): Observable<string> {
     return this.getFieldFromFirestore(uid, 'name');
+  }
+
+  getWishListFromFirestore(uid: string): Observable<[]>{
+    return this.getFieldFromFirestore(uid, 'wishList')
   }
 
   // Phương thức để lưu thông tin đơn hàng vào Firestore
@@ -220,5 +221,19 @@ ForgotPassword(passwordResetEmail: string) {
       .collection('notification')
       .doc();
     return orderRef.set(orderData);
+  }
+
+  async getWishlistCount(): Promise<number> {
+    const user = JSON.parse(localStorage.getItem('user')!);
+    
+    if (user) {
+      const userRef = this.afs.collection('users').doc(user.uid);
+      const userDoc = await userRef.get().toPromise();
+      const userData = userDoc!.data() as user;
+  
+      return userData.wishList ? userData.wishList.length : 0;
+    }
+  
+    return 0;
   }
 }
