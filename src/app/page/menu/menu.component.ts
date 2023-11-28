@@ -44,6 +44,16 @@ export class MenuComponent implements OnInit {
     );
   }
 
+  onSortOrderChange(event: any) {
+    const selectedValue = event.target.value;
+
+    if (selectedValue === '0') {
+      this.sortByPriceAscending();
+    } else if (selectedValue === '1') {
+      this.sortByPriceDescending();
+    }
+  }
+
   // Hàm để sắp xếp sản phẩm theo giá tiền tăng dần
   sortByPriceAscending() {
     this.items = this.items.pipe(
@@ -77,10 +87,8 @@ export class MenuComponent implements OnInit {
 
           // Iterate through the query results and add matching items to the searchResults array
           querySnapshot.forEach((doc) => {
-            const item = doc.data() as Item;
-            if (item.type === 'Cà phê' && item.name.toLowerCase().includes(query)) {
+            const item = doc.data() as Item;       
               this.searchResults.push(item);
-            }
           });
         })
         .catch((error) => {

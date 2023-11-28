@@ -28,12 +28,40 @@
         <div class="col-lg-12">
           <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
             <strong class="d-block py-2"> Items found </strong>
+            <div class="col-md-6 ms-auto search-container">
+              <div class="form-outline" style="max-width: 400px;">
+                <input
+                  (keyup)="onSearch($event)"
+                  id="search-input"
+                  placeholder="Tìm kiếm ...."
+                  type="search"
+                  id="form1"
+                  class="form-control"
+                />
+              </div>
+              <button id="search-button" type="button" class="btn">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+            <div *ngIf="searchResults.length > 0" class="search-results">
+              <ul>
+                <li
+                  *ngFor="let result of searchResults | slice : 0 : 5"
+                >
+                  <a (click)="goToItemDetail(result)">
+                    <img
+                      src="{{ result.image }}"
+                      alt=""
+                    />
+                    {{ result.name }}
+                  </a>
+                </li>
+              </ul>
+            </div>
             <div class="ms-auto">
-              <select class="form-select d-inline-block w-auto border pt-1">
-                <option value="0">Best match</option>
-                <option value="1">Recommended</option>
-                <option value="2">High rated</option>
-                <option value="3">Randomly</option>
+              <select class="form-select d-inline-block w-auto border pt-1" (change)="onSortOrderChange($event)">
+                <option value="0">Sắp xếp theo giá tăng dần</option>
+                <option value="1">Sắp xếp theo giá giảm dần</option>
               </select>
               <div class="btn-group shadow-0 border">
                 <a href="#" class="btn btn-light" title="List view">

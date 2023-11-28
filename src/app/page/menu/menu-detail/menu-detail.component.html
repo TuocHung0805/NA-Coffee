@@ -26,6 +26,31 @@
             </button>
           </div>
         </div>
+        <div class="product-info" style="margin-top: 30px;">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Similar items</h5>
+              <ng-container *ngFor="let coffee of items | slice:0:3">
+                <div class="d-flex mb-3" *ngIf="coffee.type == item.type" >
+                  <a class="me-3" (click)="goToItemDetail(coffee)">
+                    <img
+                      src="{{coffee.image}}"
+                      style="min-width: 96px; height: 96px"
+                      class="img-md img-thumbnail"
+                    />
+                  </a>
+                  <div class="info">
+                    <a class="nav-link mb-1" (click)="goToItemDetail(coffee)">
+                      {{coffee.name}}
+                    </a>
+                    <strong class="text-dark">{{ coffee.price | number : "1.0-0" }} ₫</strong>
+                  </div>
+                </div>
+              </ng-container>
+
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">

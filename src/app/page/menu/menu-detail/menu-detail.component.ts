@@ -5,6 +5,8 @@ import { Item, Comment } from 'src/app/service/item';
 import { CartService } from 'src/app/service/cart.service';
 import { user } from 'src/app/service/user';
 import { AuthService } from 'src/app/service/auth.service';
+import { DataService } from 'src/app/service/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-detail',
@@ -13,6 +15,7 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class MenuDetailComponent implements OnInit{
   item: Item | undefined;
+  items: any[]=[];
   newComment: Comment = { id: '', username: '', text: '' }; // Dùng để lưu trữ bình luận mới
   user: user | null = null; // Biến để lưu trữ thông tin người dùng đăng nhập
   isLoggedIn: boolean = false;
@@ -20,7 +23,7 @@ export class MenuDetailComponent implements OnInit{
   thumbnailImages: { image: string; id: string }[] = [];
   showFullContent: boolean = false;
 
-  constructor(private afs: AngularFirestore, private route: ActivatedRoute, private cartService: CartService, private authService: AuthService){}
+  constructor(private router: Router,private afs: AngularFirestore, private route: ActivatedRoute, private cartService: CartService, private authService: AuthService, private data: DataService){}
 
   ngOnInit(): void {
     // Lấy thông tin sản phẩm từ tham số URL
@@ -91,6 +94,40 @@ export class MenuDetailComponent implements OnInit{
         );
       }
     });
+    this.getAllItemRandom(3);
+  }
+
+  
+  getAllItemRandom(count: number) {
+    this.data.getAllItem().subscribe(
+      (res) => {
+        const allItems = res.map((e: any) => {
+          const data = e.payload.doc.data();
+          data.id = e.payload.doc.id;
+          return data;
+        });
+  
+        // Sắp xếp mảng ngẫu nhiên và chọn số lượng cần thiết
+        const shuffledItems = this.shuffleArray(allItems);
+        this.items = shuffledItems.slice(0, count);
+      },
+      (err) => {
+        alert('Lỗi khi xử lý dữ liệu nguyên liệu');
+      }
+    );
+  }
+  
+  // Hàm sắp xếp mảng ngẫu nhiên
+  private shuffleArray(array: any[]): any[] {
+    let currentIndex = array.length, randomIndex;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
   }
 
   toggleContent() {
@@ -145,6 +182,11 @@ export class MenuDetailComponent implements OnInit{
     // Đoạn mã tạo mã duy nhất có thể thay đổi tùy theo yêu cầu của bạn
     // Ví dụ: sử dụng thư viện UUID để tạo mã duy nhất
     return 'comment_' + new Date().getTime().toString();
+  }
+
+  goToItemDetail(product: Item) {
+    this.router.navigate(['/detail', product.id]);
+    this.getAllItemRandom(5);
   }
 }
 
