@@ -53,6 +53,7 @@ import { CartAgencyComponent } from './page-1/cart-agency/cart-agency.component'
 import { ModAgencyComponent } from './page-1/admin-agency/mod-agency/mod-agency.component';
 import { RecipeAgencyComponent } from './page-1/admin-agency/recipe-agency/recipe-agency.component';
 import { ShowCouponComponent } from './page/show-coupon/show-coupon.component';
+import { WishlistComponent } from './page/wishlist/wishlist.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -96,6 +97,7 @@ import { ShowCouponComponent } from './page/show-coupon/show-coupon.component';
     ModAgencyComponent,
     RecipeAgencyComponent,
     ShowCouponComponent,
+    WishlistComponent,
   ],
   imports: [
     BrowserModule,

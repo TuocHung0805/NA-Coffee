@@ -26,7 +26,7 @@ export class OrderListComponent implements OnInit {
   public openPDF(): void {
     const PDF = new jsPDF();
     const data: any[] = [];
-  
+
     this.allOrders.forEach(order => {
       order.cartItems.forEach((item: any) => {
         const formattedOrderTime = order.orderTime.toDate().toLocaleDateString('en-GB');
@@ -40,11 +40,11 @@ export class OrderListComponent implements OnInit {
           'ItemType': item.type,
           'Total': order.total,
         };
-  
+
         data.push(rowData);
       });
     });
-  
+
     const columns = [
       'Customer',
       'Branch',
@@ -56,13 +56,13 @@ export class OrderListComponent implements OnInit {
       'Total'
     ];
     PDF.setFont('times', 'normal');
-  
+
     (PDF as any).autoTable({
       head: [columns],
       body: data.map(row => Object.values(row)),
       bodyStyles: { fontSize: 12, font: "TimesNewRoman" },
     });
-  
+
     PDF.save('Doanh thu.pdf');
   }
 

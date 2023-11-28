@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
   cartItemCount: number = 0;
   id: any;
   notificationCount: number = 0;
+  wishlistCount: number = 0;
   isAdminUser: boolean = false;
   agencies: any[] = [];
   selectedValue: string | null = null;

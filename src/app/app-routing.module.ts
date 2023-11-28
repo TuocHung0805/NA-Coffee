@@ -39,6 +39,7 @@ import { VoucherAgencyComponent } from './page-1/voucher-agency/voucher-agency.c
 import { CartAgencyComponent } from './page-1/cart-agency/cart-agency.component';
 import { RecipeAgencyComponent } from './page-1/admin-agency/recipe-agency/recipe-agency.component';
 import { ShowCouponComponent } from './page/show-coupon/show-coupon.component';
+import { WishlistComponent } from './page/wishlist/wishlist.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -77,6 +78,7 @@ const routes: Routes = [
   {path:'cart-agency',component:CartAgencyComponent},
   {path:'recipe-agency',component:RecipeAgencyComponent},
   {path:'show-coupon',component:ShowCouponComponent},
+  {path:'wishlist',component:WishlistComponent},
 
 
 ];
