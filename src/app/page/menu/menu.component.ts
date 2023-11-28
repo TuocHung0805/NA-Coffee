@@ -5,6 +5,8 @@ import { Item } from 'src/app/service/item';
 import { map } from 'rxjs';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/service/cart.service';
+import { AuthService } from 'src/app/service/auth.service';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-menu',
@@ -17,7 +19,7 @@ export class MenuComponent implements OnInit {
   items: Observable<Item[]>;
   selectedAgency = localStorage.getItem('selectedAgency');
 
-  constructor(private afs: AngularFirestore, private router: Router, private cartService: CartService) {
+  constructor(private afs: AngularFirestore, private router: Router, private cartService: CartService, private data: DataService, private authService: AuthService) {
     this.itemsCollection = this.afs.collection<Item>('Items');
     this.items = this.itemsCollection.valueChanges()
 
@@ -89,7 +91,19 @@ export class MenuComponent implements OnInit {
       this.searchResults = [];
     }
   }
-  
+  AddWishList(itemId: string) {
+    if (this.authService.isLoggedIn) {
+      this.data.addToWishList(itemId)
+        .then(() => {
+          console.log('Đã thêm vào danh sách yêu thích');
+        })
+        .catch((error) => {
+          console.error('Lỗi khi thêm vào danh sách yêu thích:', error);
+        });
+    } else {
+      console.error('Đăng nhập để thêm vào danh sách yêu thích');
+    }
+  }
 }
 
 

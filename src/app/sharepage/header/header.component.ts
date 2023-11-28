@@ -57,6 +57,9 @@ export class HeaderComponent implements OnInit {
     } else {
       console.log('Không có thông tin người dùng hoặc uid không hợp lệ');
     }
+    this.authService.getWishlistCount().then(count => {
+      this.wishlistCount = count;
+    });
   }
 
   ngOnInit() {

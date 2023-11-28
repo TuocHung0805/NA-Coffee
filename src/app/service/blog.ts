@@ -5,4 +5,5 @@ export interface blog{
   content: string; // Thêm thuộc tính content vào kiểu Item
   uploadDate: string;
   branch: string;
+  RType?: string;
 }

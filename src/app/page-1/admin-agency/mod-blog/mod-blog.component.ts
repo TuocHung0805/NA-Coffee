@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class ModBlogComponent implements OnInit {
   ItemList: blog[] = [];
+  RequestList: any[] =[];
   ItemObj: blog = {
     id: '',
     image: '',
@@ -23,6 +24,7 @@ export class ModBlogComponent implements OnInit {
     content:'',
     uploadDate:'',
     branch:'',
+    RType:'blog'
 };
 id: string = '';
   ItemImage: string ='';
@@ -57,7 +59,21 @@ id: string = '';
     );
   }
 
-
+  getAllRequest() {
+    this.data.getAllRequest().subscribe(
+      (res) => {
+        this.RequestList = res.map((e: any) => {
+          const data = e.payload.doc.data();
+          data.id = e.payload.doc.id;
+  
+          return data;
+        }).filter((item: any) => item.RType === 'blog'); // Filter based on RType
+      },
+      (err) => {
+        alert('Lỗi khi xử lý dữ liệu nguyên liệu');
+      }
+    );
+  }
 
 
 
@@ -67,7 +83,6 @@ id: string = '';
     this. ItemTitle = '';
     this. ItemContent = '';
     this. ItemUploadDate = '';
-
   }
 
 
@@ -77,9 +92,6 @@ id: string = '';
       this. ItemUploadDate ==='' ||
       this. ItemTitle === '' ||
       this. ItemContent === '' ||
-      this.ItemBranch ===''||
-
-
       this.ItemImage ===  '' // Check if the image field is empty
     ) {
       alert('Điền đẩy đủ thông tin');
@@ -88,16 +100,11 @@ id: string = '';
 
     this.ItemObj.title = this.ItemTitle;
     this.ItemObj.content = this.ItemContent;
-this.ItemObj.branch=this.ItemBranch;
+    this.ItemObj.branch=this.ItemBranch;
     this.ItemObj.image = this.ItemImage;
-  this.ItemObj.uploadDate= this. ItemUploadDate;
+    this.ItemObj.uploadDate= this. ItemUploadDate;
 
-
-
-
-
-
-    this.data.addItemBlog(this.ItemObj);
+    this.data.requestAddBlog(this.ItemObj);
     this.showSuccessToast('Thêm blog thành công')
     this.resetForm();
     this.selectedItem = null;
@@ -106,7 +113,7 @@ this.ItemObj.branch=this.ItemBranch;
   deleteItem(item: blog) {
     if (window.confirm('Bấm xác nhận để xoá blog: ' + item.id + '?')) {
       this.data
-        .deleteItemBlog(item)
+        .deleteRequestBlog(item)
         .then(() => {
           this.showSuccessToast('Xoá blog thành công')
           this.resetForm();
@@ -123,15 +130,11 @@ this.ItemObj.branch=this.ItemBranch;
       this.ItemImage=== '' ||
       this. ItemTitle === '' ||
       this. ItemContent === '' ||
-      this.ItemBranch ===''||
-
-
       this. ItemUploadDate ==='' // Check if the image field is empty
     ) {
       alert('Điền đẩy đủ thông tin');
       return;
     }
-
 
     // Đảm bảo ItemObj có ID của sản phẩm cần cập nhật
     if (!this.ItemObj.id) {
@@ -143,13 +146,12 @@ this.ItemObj.branch=this.ItemBranch;
     this.ItemObj.title = this.ItemTitle;
     this.ItemObj.content = this.ItemContent;
     this.ItemObj.branch = this.ItemBranch;
-
     this.ItemObj.image = this.ItemImage;
-  this.ItemObj.uploadDate= this. ItemUploadDate;
+    this.ItemObj.uploadDate= this. ItemUploadDate;
 
     // Gọi phương thức updateItem() từ DataService
     this.data
-      .updateItemBlog(this.ItemObj)
+      .requestUpdateBlog(this.ItemObj)
       .then(() => {
         this.showSuccessToast('Cập nhật blog thành công');
         this.resetForm();

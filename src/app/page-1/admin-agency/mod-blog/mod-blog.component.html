@@ -62,10 +62,48 @@
 
       <div class="col-12 d-flex justify-content-end">
         <button type="submit" class="btn">
-          {{ selectedItem ? "Sửa blog" : "Thêm blog" }}
+          {{ selectedItem ? "Sửa yêu cầu blog" : "Yêu cầu thêm blog" }}
         </button>
       </div>
     </form>
+
+    <div>
+      <h5 class="text-danger" style="font-size: 20px; margin-top: 10px">
+        Danh sách yêu cầu blog
+      </h5>
+      <div class="card p-3 shadow">
+        <div class="card-body">
+          <table class="table table-hover">
+            <thead>
+              <tr style="text-align: center">
+                <th scope="col">Tên Blog</th>
+                <th scope="col">Hình Blog</th>
+                <th scope="col">Content</th>
+                <th scope="col">Ngày</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let item of RequestList"
+                (click)="selectItem(item)"
+                style="text-align: center; cursor: pointer"
+              >
+                <td>{{ item.title }}</td>
+                <td>
+                  <img
+                    src="{{ item.image }}"
+                    alt=""
+                    style="height: 100px; width: 100px"
+                  />
+                </td>
+                <td>{{ item.content }}</td>
+                <td>{{ item.uploadDate }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
     <div>
       <h5 class="text-danger" style="font-size: 20px; margin-top: 10px">
@@ -98,15 +136,6 @@
                 </td>
                 <td>{{ item.content }}</td>
                 <td>{{ item.uploadDate }}</td>
-
-                <td class="group-button">
-                  <button
-                    class="btn btn-outline-danger"
-                    (click)="deleteItem(item)"
-                  >
-                    Xoá
-                  </button>
-                </td>
               </tr>
             </tbody>
           </table>
